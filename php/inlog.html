@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inloggen</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ══════════════════════════════════════════
+       INLOG PAGINA
+       Gecentreerde kaart, velden + 2 knoppen
+    ══════════════════════════════════════════ */
+
+    body {
+      background: var(--off-white);
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
+
+    .login-wrap {
+      flex: 1; display: flex;
+      align-items: center; justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+
+    .login-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3rem 2.5rem;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+    }
+
+    /* Logo bovenaan */
+    .login-logo {
+      text-align: center; margin-bottom: 2rem;
+    }
+    .login-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem; color: var(--green); display: block;
+    }
+
+    /* Velden — drie blokken zoals in wireframe */
+    .login-fields { margin-bottom: 1.5rem; }
+
+    /* De twee knoppen */
+    .login-actions { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .divider {
+      display: flex; align-items: center; gap: 0.85rem;
+      margin: 1rem 0; color: var(--gray-light); font-size: 0.75rem;
+    }
+    .divider::before,
+    .divider::after { content: ''; flex: 1; border-top: 1px solid var(--border); }
+
+    .forgot-link {
+      display: block; text-align: right; font-size: 0.76rem;
+      color: var(--gray-light); text-decoration: none;
+      margin-top: -0.4rem; margin-bottom: 1.25rem;
+      transition: color 0.18s;
+    }
+    .forgot-link:hover { color: var(--green); }
+
+    .login-sub {
+      font-size: 0.83rem; color: var(--gray-light);
+      text-align: center; margin-bottom: 1.75rem; line-height: 1.65;
+    }
+
+    /* ── RESPONSIVE ─────────────────────── */
+    @media (max-width: 480px) {
+      .login-card { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body class="page-wrap">
+
+  <header class="site-header">
+    <nav class="site-nav">
+      <a href="index.html" class="logo">Logo</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Menu</a></li>
+        <li><a href="index.html#over-ons">Over ons</a></li>
+        <li><a href="index.html#locatie">Locatie</a></li>
+        <li><a href="bestellen.html" class="nav-cta">Bestellen</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="inloggen.html" class="nav-avatar">👤</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="login-wrap">
+    <div class="login-card anim-1">
+
+      <!-- Logo -->
+      <div class="login-logo">
+        <span class="login-logo-text">Logo</span>
+      </div>
+
+      <p class="login-sub">Log in om je bestellingen te bekijken<br />en je gegevens te beheren.</p>
+
+      <!-- Velden -->
+      <div class="login-fields">
+        <div class="field">
+          <label for="email">E-mailadres</label>
+          <input type="email" id="email" placeholder="jan@voorbeeld.nl" />
+        </div>
+        <div class="field">
+          <label for="wachtwoord">Wachtwoord</label>
+          <input type="password" id="wachtwoord" placeholder="••••••••" />
+        </div>
+        <a href="#" class="forgot-link">Wachtwoord vergeten?</a>
+      </div>
+
+      <!-- Knoppen — zoals wireframe: twee knoppen onder elkaar -->
+      <div class="login-actions">
+        <button type="button" class="btn btn-green btn-full">Inloggen</button>
+        <div class="divider">of</div>
+        <a href="#" class="btn btn-ghost btn-full">Nog geen account? Registreer</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">Logo</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="bestellen.html">Bestellen</a></li>
+        <li><a href="formulier.html">Reserveer</a></li>
+      </ul>
+      <p class="footer-copy">© 2025 Restaurant. Alle rechten voorbehouden.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

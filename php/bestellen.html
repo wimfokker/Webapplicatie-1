@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bestellen</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ══════════════════════════════════════════
+       BEHEER / BESTEL PAGINA
+       Layout: product grid links + cart rechts
+    ══════════════════════════════════════════ */
+
+    body { background: var(--off-white); }
+
+    /* Vaste hoogte layout */
+    .order-layout {
+      display: flex;
+      height: calc(100vh - var(--header-h));
+      margin-top: var(--header-h);
+      overflow: hidden;
+    }
+
+    /* ── MENU LINKS ──────────────────────── */
+    .menu-col {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.75rem 1.75rem 3rem;
+      min-width: 0;
+    }
+
+    /* Zoekbalk bovenaan */
+    .search-bar {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .search-bar input {
+      width: 100%; border: 1px solid var(--border); border-radius: 20px;
+      padding: 0.55rem 1rem 0.55rem 2.4rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+      color: var(--gray); background: var(--white);
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+    .search-bar input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(0,117,74,0.07); }
+    .search-bar::before {
+      content: '🔍'; position: absolute; left: 0.8rem; top: 50%;
+      transform: translateY(-50%); font-size: 0.78rem; pointer-events: none;
+    }
+
+    /* Categorie knoppen */
+    .cat-bar {
+      display: flex; gap: 0.4rem; margin-bottom: 1.75rem;
+      overflow-x: auto; padding-bottom: 0.2rem; scrollbar-width: none;
+    }
+    .cat-bar::-webkit-scrollbar { display: none; }
+    .cat-btn {
+      background: var(--white); border: 1px solid var(--border);
+      padding: 0.38rem 0.9rem; border-radius: 20px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+      color: var(--gray-light); cursor: pointer; white-space: nowrap;
+      transition: all 0.18s;
+    }
+    .cat-btn:hover { border-color: var(--green); color: var(--green); }
+    .cat-btn.active { background: var(--green); border-color: var(--green); color: var(--white); font-weight: 500; }
+
+    /* Sectie */
+    .product-section { margin-bottom: 2.25rem; }
+    .section-head {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      font-weight: 400; color: var(--gray);
+      padding-bottom: 0.55rem; border-bottom: 1px solid var(--border);
+      margin-bottom: 0.9rem;
+    }
+
+    /* Product kaarten — afbeelding links, tekst rechts
+       Elke rij = 2 kaarten naast elkaar (zoals wireframe) */
+    .product-grid {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .product-card {
+      flex: 1 1 calc(50% - 0.375rem); min-width: 220px;
+      display: flex; background: var(--white);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; transition: box-shadow 0.18s, transform 0.18s;
+      position: relative;
+    }
+    .product-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.07); transform: translateY(-1px); }
+
+    .prod-img {
+      width: 92px; min-height: 92px; flex-shrink: 0;
+      background: var(--green-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.9rem; position: relative;
+    }
+    .prod-img.c2 { background: #f5f0e8; }
+    .prod-img.c3 { background: #f0f5f2; }
+
+    .prod-badge {
+      position: absolute; top: 6px; left: 6px;
+      background: var(--green); color: var(--white);
+      font-size: 0.52rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.15rem 0.38rem; border-radius: 2px;
+    }
+
+    /* Ronde plus knop — rechtsboven op kaart */
+    .prod-add {
+      position: absolute; top: 8px; right: 8px;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--green); color: var(--white);
+      border: none; font-size: 1rem; line-height: 1; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      transition: opacity 0.18s, transform 0.15s;
+      box-shadow: 0 2px 6px rgba(0,117,74,0.25);
+    }
+    .prod-add:hover { opacity: 0.82; transform: scale(1.1); }
+
+    .prod-body {
+      flex: 1; padding: 0.75rem 2.2rem 0.75rem 0.9rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .prod-body h3 {
+      font-family: 'Playfair Display', serif; font-size: 0.88rem;
+      font-weight: 400; color: var(--gray); margin-bottom: 0.2rem;
+    }
+    .prod-body p { font-size: 0.74rem; color: var(--gray-light); line-height: 1.5; margin-bottom: 0.4rem; }
+    .prod-price { font-weight: 500; font-size: 0.88rem; color: var(--green); }
+
+    /* ── WINKELWAGEN RECHTS ──────────────── */
+    .cart-col {
+      width: 300px; flex-shrink: 0;
+      background: var(--white); border-left: 1px solid var(--border);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+
+    .cart-scroll {
+      flex: 1; overflow-y: auto; padding: 1.5rem;
+      display: flex; flex-direction: column;
+    }
+
+    .cart-title {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      font-weight: 400; color: var(--gray); margin-bottom: 1.25rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cart-title .cart-count {
+      font-family: 'DM Sans', sans-serif; font-size: 0.72rem;
+      background: var(--green-light); color: var(--green);
+      padding: 0.2rem 0.5rem; border-radius: 10px; font-weight: 500;
+    }
+
+    .cart-items { list-style: none; flex: 1; }
+
+    .cart-item {
+      display: flex; align-items: flex-start; gap: 0.5rem;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border);
+    }
+    .cart-item:last-child { border-bottom: none; }
+
+    .ci-info { flex: 1; min-width: 0; }
+    .ci-name { display: block; font-size: 0.85rem; font-weight: 500; color: var(--gray); line-height: 1.3; }
+    .ci-desc { font-size: 0.7rem; color: var(--gray-light); }
+
+    .ci-controls { display: flex; align-items: center; gap: 0.3rem; flex-shrink: 0; }
+    .qty-btn {
+      width: 22px; height: 22px; border: 1px solid var(--border);
+      background: none; border-radius: 50%; font-size: 0.82rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--gray); font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .qty-btn:hover { border-color: var(--green); color: var(--green); }
+    .qty-num { font-size: 0.82rem; font-weight: 500; min-width: 14px; text-align: center; color: var(--gray); }
+
+    .ci-price { font-size: 0.82rem; font-weight: 500; color: var(--gray); white-space: nowrap; min-width: 42px; text-align: right; }
+
+    /* Totalen */
+    .cart-totals { margin: 0.9rem 0; }
+    .cart-row { display: flex; justify-content: space-between; font-size: 0.82rem; color: var(--gray); padding: 0.22rem 0; }
+    .cart-row.muted { color: var(--gray-light); font-size: 0.76rem; }
+    .cart-row.total { font-weight: 500; font-size: 0.9rem; padding-top: 0.5rem; }
+    .cart-divider { border: none; border-top: 1px solid var(--border); margin: 0.4rem 0; }
+
+    /* Opmerking */
+    .cart-note { margin-bottom: 1rem; }
+    .cart-note label {
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gray-light); display: block; margin-bottom: 0.32rem;
+    }
+    .cart-note textarea {
+      width: 100%; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 0.5rem 0.7rem; font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem; color: var(--gray); resize: none;
+      background: var(--off-white); transition: border-color 0.18s;
+    }
+    .cart-note textarea:focus { outline: none; border-color: var(--green); }
+
+    /* Afrekenen knop in vaste balk onderaan */
+    .cart-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: var(--white);
+    }
+    .btn-checkout {
+      width: 100%; background: var(--green); color: var(--white);
+      border: none; padding: 0.85rem; border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500;
+      cursor: pointer; transition: opacity 0.18s; text-align: center;
+    }
+    .btn-checkout:hover { opacity: 0.86; }
+
+    /* Mobiel cart toggle */
+    .cart-toggle-btn {
+      display: none; background: var(--green); color: var(--white);
+      border: none; padding: 0.38rem 0.85rem; border-radius: 20px;
+      font-size: 0.78rem; font-family: 'DM Sans', sans-serif;
+      cursor: pointer; align-items: center; gap: 0.3rem;
+    }
+    .cart-badge { background: var(--white); color: var(--green); font-size: 0.62rem; font-weight: 700; border-radius: 50%; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; }
+    .cart-close-btn { display: none; background: none; border: none; font-size: 1rem; color: var(--gray-light); cursor: pointer; padding: 0.2rem; }
+    .cart-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.28); z-index: 150; }
+    .cart-overlay.visible { display: block; }
+
+    /* ── RESPONSIVE ─────────────────────── */
+    @media (max-width: 900px) {
+      .cart-col { width: 260px; }
+    }
+    @media (max-width: 768px) {
+      body { overflow: auto; }
+      .order-layout { height: auto; overflow: visible; flex-direction: column; }
+      .menu-col { padding: 1.25rem 1rem 5rem; }
+      .cart-toggle-btn { display: flex; }
+      .product-card { flex: 1 1 100%; }
+      .cart-col {
+        position: fixed; top: 0; right: 0;
+        width: 300px; height: 100vh; z-index: 300;
+        transform: translateX(100%); transition: transform 0.26s ease;
+        box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+      }
+      .cart-col.open { transform: translateX(0); }
+      .cart-close-btn { display: block; }
+      .cart-title { margin-bottom: 1rem; }
+    }
+    @media (max-width: 480px) {
+      .cart-col { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="site-nav">
+      <a href="index.html" class="logo">Logo</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Menu</a></li>
+        <li><a href="index.html#over-ons">Over ons</a></li>
+        <li><a href="index.html#locatie">Locatie</a></li>
+        <li><a href="bestellen.html" class="nav-cta">Bestellen</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="cart-toggle-btn" aria-label="Winkelwagen">🛒 <span class="cart-badge">3</span></button>
+        <a href="inloggen.html" class="nav-avatar">👤</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="order-layout">
+
+    <!-- MENU LINKS -->
+    <main class="menu-col">
+
+      <!-- Zoekbalk -->
+      <div class="search-bar">
+        <input type="search" placeholder="Zoek een product…" aria-label="Zoeken" />
+      </div>
+
+      <!-- Categorie knoppen -->
+      <div class="cat-bar" role="tablist">
+        <button class="cat-btn active" data-cat="all">Alles</button>
+        <button class="cat-btn" data-cat="burgers">🍔 Burgers</button>
+        <button class="cat-btn" data-cat="kip">🐔 Kip</button>
+        <button class="cat-btn" data-cat="veggie">🌱 Veggie</button>
+        <button class="cat-btn" data-cat="sides">🍟 Sides</button>
+        <button class="cat-btn" data-cat="dranken">🥤 Dranken</button>
+      </div>
+
+      <!-- Burgers -->
+      <section class="product-section" data-section="burgers">
+        <h2 class="section-head">Burgers</h2>
+        <div class="product-grid">
+
+          <article class="product-card" data-cat="burgers">
+            <div class="prod-img">🥩<span class="prod-badge">Top</span></div>
+            <div class="prod-body">
+              <h3>De Klassieke</h3>
+              <p>Rundergehakt, cheddar, carameliseerde ui op brioche bun.</p>
+              <span class="prod-price">€ 12,50</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+          <article class="product-card" data-cat="burgers">
+            <div class="prod-img c2">🔥</div>
+            <div class="prod-body">
+              <h3>De Pittige</h3>
+              <p>Dubbel patty, jalapeño, habanero mayo, smoked gouda.</p>
+              <span class="prod-price">€ 14,50</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+          <article class="product-card" data-cat="burgers">
+            <div class="prod-img c3">🧀</div>
+            <div class="prod-body">
+              <h3>De Smoky</h3>
+              <p>Pulled beef, gerookte cheddar, BBQ saus, krokante uitjes.</p>
+              <span class="prod-price">€ 15,00</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+          <article class="product-card" data-cat="burgers">
+            <div class="prod-img c2">🐟</div>
+            <div class="prod-body">
+              <h3>De Vis</h3>
+              <p>Gebakken kabeljauw, kappertjes-remoulade en ijsbergsla.</p>
+              <span class="prod-price">€ 13,50</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Kip -->
+      <section class="product-section" data-section="kip">
+        <h2 class="section-head">Kip</h2>
+        <div class="product-grid">
+
+          <article class="product-card" data-cat="kip">
+            <div class="prod-img">🐔<span class="prod-badge">Nieuw</span></div>
+            <div class="prod-body">
+              <h3>De Krokante Kip</h3>
+              <p>Kipfilet, coleslaw, honing-mosterd en verse tomaat.</p>
+              <span class="prod-price">€ 12,00</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+          <article class="product-card" data-cat="kip">
+            <div class="prod-img c3">🍗</div>
+            <div class="prod-body">
+              <h3>Kip Tenders (5 st.)</h3>
+              <p>Krokante kipstripjes met dipsaus naar keuze.</p>
+              <span class="prod-price">€ 9,50</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Veggie -->
+      <section class="product-section" data-section="veggie">
+        <h2 class="section-head">Veggie</h2>
+        <div class="product-grid">
+
+          <article class="product-card" data-cat="veggie">
+            <div class="prod-img c3">🌱<span class="prod-badge">Veg</span></div>
+            <div class="prod-body">
+              <h3>De Groene</h3>
+              <p>Portobello, geitenkaas, zongedroogde tomaat en rucola.</p>
+              <span class="prod-price">€ 11,00</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+          <article class="product-card" data-cat="veggie">
+            <div class="prod-img c3">🥑</div>
+            <div class="prod-body">
+              <h3>De Avocado</h3>
+              <p>Plantaardige patty, avocado, rode ui en chipotle mayo.</p>
+              <span class="prod-price">€ 12,50</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Sides -->
+      <section class="product-section" data-section="sides">
+        <h2 class="section-head">Sides</h2>
+        <div class="product-grid">
+
+          <article class="product-card" data-cat="sides">
+            <div class="prod-img">🍟</div>
+            <div class="prod-body">
+              <h3>Huisfriet</h3>
+              <p>Verse friet, dagelijks gesneden met huismayonaise.</p>
+              <span class="prod-price">€ 4,00</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+          <article class="product-card" data-cat="sides">
+            <div class="prod-img c2">🧅</div>
+            <div class="prod-body">
+              <h3>Uienringen</h3>
+              <p>Krokante uienringen met bierbeslag en dipsaus.</p>
+              <span class="prod-price">€ 4,50</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Dranken -->
+      <section class="product-section" data-section="dranken">
+        <h2 class="section-head">Dranken</h2>
+        <div class="product-grid">
+
+          <article class="product-card" data-cat="dranken">
+            <div class="prod-img">🥤</div>
+            <div class="prod-body">
+              <h3>Frisdrank</h3>
+              <p>Cola, Fanta, Sprite of water naar keuze.</p>
+              <span class="prod-price">€ 3,00</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+          <article class="product-card" data-cat="dranken">
+            <div class="prod-img c2">🍺</div>
+            <div class="prod-body">
+              <h3>Lokaal Bier</h3>
+              <p>Wisselend lokaal bier op tap of gebotteld.</p>
+              <span class="prod-price">€ 4,50</span>
+            </div>
+            <button class="prod-add" aria-label="Toevoegen">+</button>
+          </article>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- WINKELWAGEN RECHTS -->
+    <aside class="cart-col" id="cart" aria-label="Winkelwagen">
+      <div class="cart-scroll">
+        <div class="cart-title">
+          Jouw bestelling
+          <button class="cart-close-btn" aria-label="Sluiten">✕</button>
+        </div>
+
+        <ul class="cart-items">
+          <li class="cart-item">
+            <div class="ci-info"><span class="ci-name">De Klassieke</span><span class="ci-desc">Standaard</span></div>
+            <div class="ci-controls"><button class="qty-btn">−</button><span class="qty-num">2</span><button class="qty-btn">+</button></div>
+            <span class="ci-price">€ 25,00</span>
+          </li>
+          <li class="cart-item">
+            <div class="ci-info"><span class="ci-name">Huisfriet</span><span class="ci-desc">Standaard</span></div>
+            <div class="ci-controls"><button class="qty-btn">−</button><span class="qty-num">1</span><button class="qty-btn">+</button></div>
+            <span class="ci-price">€ 4,00</span>
+          </li>
+          <li class="cart-item">
+            <div class="ci-info"><span class="ci-name">Lokaal Bier</span><span class="ci-desc">Gebotteld</span></div>
+            <div class="ci-controls"><button class="qty-btn">−</button><span class="qty-num">1</span><button class="qty-btn">+</button></div>
+            <span class="ci-price">€ 4,50</span>
+          </li>
+        </ul>
+
+        <div class="cart-totals">
+          <div class="cart-row"><span>Subtotaal</span><span>€ 33,50</span></div>
+          <div class="cart-row muted"><span>Incl. BTW</span><span>€ 5,85</span></div>
+          <div class="cart-divider"></div>
+          <div class="cart-row total"><span>Totaal</span><span>€ 33,50</span></div>
+        </div>
+
+        <div class="cart-note">
+          <label for="note">Opmerking</label>
+          <textarea id="note" rows="2" placeholder="Bijv. geen ui, extra saus…"></textarea>
+        </div>
+      </div>
+
+      <div class="cart-footer">
+        <button class="btn-checkout">Afrekenen — € 33,50</button>
+      </div>
+    </aside>
+
+  </div><!-- /order-layout -->
+
+  <div class="cart-overlay"></div>
+
+  <script>
+    // Categorie filter
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        document.querySelectorAll('.product-section').forEach(s => {
+          s.style.display = (cat === 'all' || s.dataset.section === cat) ? '' : 'none';
+        });
+      });
+    });
+    // Mobiel cart
+    const cart    = document.getElementById('cart');
+    const overlay = document.querySelector('.cart-overlay');
+    const openBtn = document.querySelector('.cart-toggle-btn');
+    const closeBtn = document.querySelector('.cart-close-btn');
+    function openCart()  { cart.classList.add('open');    overlay.classList.add('visible');    document.body.style.overflow = 'hidden'; }
+    function closeCart() { cart.classList.remove('open'); overlay.classList.remove('visible'); document.body.style.overflow = ''; }
+    openBtn.addEventListener('click', openCart);
+    closeBtn.addEventListener('click', closeCart);
+    overlay.addEventListener('click', closeCart);
+  </script>
+
+</body>
+</html>

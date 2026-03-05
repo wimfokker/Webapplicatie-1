@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reserveer een tafel</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ══════════════════════════════════════════
+       FORMULIER PAGINA
+       Layout: info blok links + formulier rechts
+    ══════════════════════════════════════════ */
+
+    body { background: var(--off-white); }
+
+    .form-wrap {
+      min-height: calc(100vh - var(--header-h) - 72px);
+      display: flex; align-items: flex-start;
+      gap: 3.5rem;
+      max-width: 1200px; margin: 0 auto;
+      padding: 3.5rem 2rem 4rem;
+    }
+
+    /* ── INFO LINKS ──────────────────────── */
+    .form-info { flex: 1; min-width: 0; }
+
+    .form-info h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 400; color: var(--gray);
+      line-height: 1.18; margin-bottom: 0.8rem;
+    }
+    .form-info h1 em { font-style: italic; color: var(--green); }
+
+    .form-info > p {
+      font-size: 0.9rem; color: var(--gray-light);
+      line-height: 1.8; max-width: 340px; margin-bottom: 2.25rem;
+    }
+
+    /* Kleine info blokken */
+    .info-blocks { display: flex; flex-direction: column; gap: 1.25rem; }
+    .info-block h4 {
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 0.3rem;
+    }
+    .info-block p { font-size: 0.86rem; color: var(--gray-light); line-height: 1.7; }
+    .info-block a { color: var(--green); text-decoration: none; }
+    .info-block a:hover { text-decoration: underline; }
+
+    /* ── FORMULIER KAART RECHTS ──────────── */
+    .form-card {
+      flex: 0 0 480px; background: var(--white);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 2.25rem 2.5rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    }
+
+    .form-card h2 {
+      font-family: 'Playfair Display', serif; font-size: 1.25rem;
+      font-weight: 400; color: var(--gray); margin-bottom: 1.75rem;
+    }
+
+    .form-note {
+      font-size: 0.74rem; color: var(--gray-light);
+      text-align: center; margin-top: 0.75rem; line-height: 1.5;
+    }
+
+    /* ── RESPONSIVE ─────────────────────── */
+    @media (max-width: 900px) {
+      .form-card { flex: 1; }
+    }
+    @media (max-width: 768px) {
+      .form-wrap { flex-direction: column; gap: 2.5rem; padding: 2.5rem 1.5rem; }
+      .form-card { padding: 1.75rem 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .form-wrap { padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body class="page-wrap">
+
+  <header class="site-header">
+    <nav class="site-nav">
+      <a href="index.html" class="logo">Logo</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Menu</a></li>
+        <li><a href="index.html#over-ons">Over ons</a></li>
+        <li><a href="index.html#locatie">Locatie</a></li>
+        <li><a href="bestellen.html" class="nav-cta">Bestellen</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="inloggen.html" class="nav-avatar">👤</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="form-wrap">
+
+      <!-- INFO LINKS -->
+      <div class="form-info anim-1">
+        <span class="label-tag">Reserveren</span>
+        <h1>Geniet van een<br /><em>rustig moment</em></h1>
+        <p>Reserveer een tafel en wij zorgen voor de rest. We nemen contact op ter bevestiging.</p>
+
+        <div class="info-blocks">
+          <div class="info-block">
+            <h4>📍 Adres</h4>
+            <p>Straatnaam 1<br />6511 XX Nijmegen</p>
+          </div>
+          <div class="info-block">
+            <h4>🕐 Openingstijden</h4>
+            <p>Di – Do: 11:30 – 21:00<br />Vr – Za: 11:30 – 22:30<br />Zo: 12:00 – 20:00<br /><em style="color:var(--gray)">Ma: gesloten</em></p>
+          </div>
+          <div class="info-block">
+            <h4>📞 Contact</h4>
+            <p><a href="tel:+31612345678">06 12 34 56 78</a><br /><a href="mailto:info@restaurant.nl">info@restaurant.nl</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMULIER RECHTS -->
+      <div class="form-card anim-2">
+        <h2>Tafel reserveren</h2>
+        <form novalidate>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="voornaam">Voornaam</label>
+              <input type="text" id="voornaam" placeholder="Jan" />
+            </div>
+            <div class="field">
+              <label for="achternaam">Achternaam</label>
+              <input type="text" id="achternaam" placeholder="de Vries" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">E-mailadres</label>
+            <input type="email" id="email" placeholder="jan@voorbeeld.nl" />
+          </div>
+
+          <div class="field">
+            <label for="telefoon">Telefoonnummer</label>
+            <input type="tel" id="telefoon" placeholder="06 12 34 56 78" />
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="datum">Datum</label>
+              <input type="date" id="datum" />
+            </div>
+            <div class="field">
+              <label for="tijd">Tijdstip</label>
+              <select id="tijd">
+                <option value="">Kies tijd</option>
+                <option>11:30</option><option>12:00</option><option>12:30</option>
+                <option>13:00</option><option>17:00</option><option>17:30</option>
+                <option>18:00</option><option>18:30</option><option>19:00</option>
+                <option>19:30</option><option>20:00</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="gasten">Aantal gasten</label>
+            <select id="gasten">
+              <option>1 persoon</option>
+              <option>2 personen</option>
+              <option selected>3 – 4 personen</option>
+              <option>5 – 6 personen</option>
+              <option>7 of meer</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="opmerkingen">Opmerkingen (optioneel)</label>
+            <textarea id="opmerkingen" placeholder="Bijv. verjaardag, kinderstoel nodig, allergieën…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-green btn-full" style="margin-top:0.25rem;">
+            Reservering bevestigen
+          </button>
+
+          <p class="form-note">We nemen binnen 24 uur contact op ter bevestiging.</p>
+
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">Logo</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="bestellen.html">Bestellen</a></li>
+        <li><a href="formulier.html">Reserveer</a></li>
+        <li><a href="inloggen.html">Inloggen</a></li>
+      </ul>
+      <p class="footer-copy">© 2025 Restaurant. Alle rechten voorbehouden.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
