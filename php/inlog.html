@@ -5,72 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Inloggen</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* ══════════════════════════════════════════
-       INLOG PAGINA
-       Gecentreerde kaart, velden + 2 knoppen
-    ══════════════════════════════════════════ */
 
-    body {
-      background: var(--off-white);
-      display: flex; flex-direction: column; min-height: 100vh;
-    }
-
-    .login-wrap {
-      flex: 1; display: flex;
-      align-items: center; justify-content: center;
-      padding: 3rem 1.5rem;
-    }
-
-    .login-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 3rem 2.5rem;
-      width: 100%; max-width: 400px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
-    }
-
-    /* Logo bovenaan */
-    .login-logo {
-      text-align: center; margin-bottom: 2rem;
-    }
-    .login-logo-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem; color: var(--green); display: block;
-    }
-
-    /* Velden — drie blokken zoals in wireframe */
-    .login-fields { margin-bottom: 1.5rem; }
-
-    /* De twee knoppen */
-    .login-actions { display: flex; flex-direction: column; gap: 0.6rem; }
-
-    .divider {
-      display: flex; align-items: center; gap: 0.85rem;
-      margin: 1rem 0; color: var(--gray-light); font-size: 0.75rem;
-    }
-    .divider::before,
-    .divider::after { content: ''; flex: 1; border-top: 1px solid var(--border); }
-
-    .forgot-link {
-      display: block; text-align: right; font-size: 0.76rem;
-      color: var(--gray-light); text-decoration: none;
-      margin-top: -0.4rem; margin-bottom: 1.25rem;
-      transition: color 0.18s;
-    }
-    .forgot-link:hover { color: var(--green); }
-
-    .login-sub {
-      font-size: 0.83rem; color: var(--gray-light);
-      text-align: center; margin-bottom: 1.75rem; line-height: 1.65;
-    }
-
-    /* ── RESPONSIVE ─────────────────────── */
-    @media (max-width: 480px) {
-      .login-card { padding: 2rem 1.5rem; }
-    }
-  </style>
 </head>
 <body class="page-wrap">
 
