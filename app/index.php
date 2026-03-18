@@ -1,8 +1,5 @@
-<php
-
-  INCLUDE_ONCE 'app\database.php;
-
-  echo = "hello";
+<?php
+  INCLUDE_ONCE ('database.php');
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +17,13 @@
   <!-- HEADER -->
   <header class="site-header">
     <nav class="site-nav">
-      <a href="index.html" class="logo">Logo</a>
+      <a href="index.php" class="logo">Logo</a>
       <ul class="nav-links">
-        <li><a href="index.html" class="active">Menu</a></li>
-        <li><a href="bestellen.html" class="nav-cta">Bestellen</a></li>
+        <li><a href="index.php" class="active">Menu</a></li>
+        <li><a href="bestellen.php" class="nav-cta">Bestellen</a></li>
       </ul>
       <div class="nav-right">
-        <a href="inlog.html" class="nav-avatar" aria-label="Inloggen">👤</a>
+        <a href="inlog.php" class="nav-avatar" aria-label="Inloggen">👤</a>
       </div>
     </nav>
   </header>
@@ -43,8 +40,8 @@
           <h1>Puur, eerlijk<br />& <em>smaakvol</em></h1>
           <p>Verse ingrediënten, lokale leveranciers en burgers die je niet vergeet. Simpel als dat.</p>
           <div class="hero-btns">
-            <a href="bestellen.html" class="btn btn-green">Bestellen</a>
-            <a href="formulier.html" class="btn btn-outline">Reserveer</a>
+            <a href="bestellen.php" class="btn btn-green">Bestellen</a>
+            <a href="formulier.php" class="btn btn-outline">Reserveer</a>
           </div>
         </div>
       </div>
@@ -136,7 +133,7 @@
     <div class="container">
       <h2>Reserveer een tafel</h2>
       <p>Kom langs en geniet van een rustig moment. Wij zorgen voor de rest.</p>
-      <a href="formulier.html" class="btn btn-white">Reserveer nu</a>
+      <a href="formulier.php" class="btn btn-white">Reserveer nu</a>
     </div>
   </section>
 
@@ -146,9 +143,9 @@
       <div class="footer-logo">Logo</div>
       <ul class="footer-links">
         <li><a href="#menu">Menu</a></li>
-        <li><a href="bestellen.html">Bestellen</a></li>
-        <li><a href="formulier.html">Reserveer</a></li>
-        <li><a href="inlog.html">Inloggen</a></li>
+        <li><a href="bestellen.php">Bestellen</a></li>
+        <li><a href="formulier.php">Reserveer</a></li>
+        <li><a href="inlog.php">Inloggen</a></li>
       </ul>
       <p class="footer-copy">© 2025 Restaurant. Alle rechten voorbehouden.</p>
     </div>

@@ -6,18 +6,19 @@
   <title>Bestellen</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
   <header class="site-header">
     <nav class="site-nav">
-      <a href="index.html" class="logo">Logo</a>
+      <a href="index.php" class="logo">Logo</a>
       <ul class="nav-links">
-        <li><a href="index.html">Menu</a></li>
-        <li><a href="bestellen.html" class="nav-cta">Bestellen</a></li>
+        <li><a href="index.php">Menu</a></li>
+        <li><a href="bestellen.php" class="nav-cta">Bestellen</a></li>
       </ul>
       <div class="nav-right">
         <button class="cart-toggle-btn" aria-label="Winkelwagen">🛒 <span class="cart-badge">3</span></button>
-        <a href="inlog.html" class="nav-avatar">👤</a>
+        <a href="inlog.php" class="nav-avatar">👤</a>
       </div>
     </nav>
   </header>
@@ -56,37 +57,6 @@
             </div>
             <button class="prod-add" aria-label="Toevoegen">+</button>
           </article>
-
-          <article class="product-card" data-cat="burgers">
-            <div class="prod-img c2">🔥</div>
-            <div class="prod-body">
-              <h3>Pittige</h3>
-              <p>Dubbel patty, jalapeño, habanero mayo, smoked gouda.</p>
-              <span class="prod-price">€ 14,50</span>
-            </div>
-            <button class="prod-add" aria-label="Toevoegen">+</button>
-          </article>
-
-          <article class="product-card" data-cat="burgers">
-            <div class="prod-img c3">🧀</div>
-            <div class="prod-body">
-              <h3>Smoky</h3>
-              <p>Pulled beef, gerookte cheddar, BBQ saus, krokante uitjes.</p>
-              <span class="prod-price">€ 15,00</span>
-            </div>
-            <button class="prod-add" aria-label="Toevoegen">+</button>
-          </article>
-
-          <article class="product-card" data-cat="burgers">
-            <div class="prod-img c2">🐟</div>
-            <div class="prod-body">
-              <h3>Vis</h3>
-              <p>Gebakken kabeljauw, kappertjes-remoulade en ijsbergsla.</p>
-              <span class="prod-price">€ 13,50</span>
-            </div>
-            <button class="prod-add" aria-label="Toevoegen">+</button>
-          </article>
-
         </div>
       </section>
 
@@ -104,18 +74,7 @@
             </div>
             <button class="prod-add" aria-label="Toevoegen">+</button>
           </article>
-
-          <article class="product-card" data-cat="kip">
-            <div class="prod-img c3">🍗</div>
-            <div class="prod-body">
-              <h3>Kip Tenders (5 st.)</h3>
-              <p>Krokante kipstripjes met dipsaus naar keuze.</p>
-              <span class="prod-price">€ 9,50</span>
-            </div>
-            <button class="prod-add" aria-label="Toevoegen">+</button>
-          </article>
-
-        </div>
+        </div>  
       </section>
 
       <!-- Veggie -->
@@ -132,17 +91,6 @@
             </div>
             <button class="prod-add" aria-label="Toevoegen">+</button>
           </article>
-
-          <article class="product-card" data-cat="veggie">
-            <div class="prod-img c3">🥑</div>
-            <div class="prod-body">
-              <h3>Avocado</h3>
-              <p>Plantaardige patty, avocado, rode ui en chipotle mayo.</p>
-              <span class="prod-price">€ 12,50</span>
-            </div>
-            <button class="prod-add" aria-label="Toevoegen">+</button>
-          </article>
-
         </div>
       </section>
 
@@ -216,23 +164,13 @@
           <li class="cart-item">
             <div class="ci-info"><span class="ci-name">De Klassieke</span><span class="ci-desc">Standaard</span></div>
             <div class="ci-controls"><button class="qty-btn">−</button><span class="qty-num">2</span><button class="qty-btn">+</button></div>
-            <span class="ci-price">€ 25,00</span>
-          </li>
-          <li class="cart-item">
-            <div class="ci-info"><span class="ci-name">Huisfriet</span><span class="ci-desc">Standaard</span></div>
-            <div class="ci-controls"><button class="qty-btn">−</button><span class="qty-num">1</span><button class="qty-btn">+</button></div>
-            <span class="ci-price">€ 4,00</span>
-          </li>
-          <li class="cart-item">
-            <div class="ci-info"><span class="ci-name">Lokaal Bier</span><span class="ci-desc">Gebotteld</span></div>
-            <div class="ci-controls"><button class="qty-btn">−</button><span class="qty-num">1</span><button class="qty-btn">+</button></div>
-            <span class="ci-price">€ 4,50</span>
+            <span class="ci-price"></span>
           </li>
         </ul>
 
         <div class="cart-totals">
-          <div class="cart-row"><span>Subtotaal</span><span>€ 33,50</span></div>
-          <div class="cart-row muted"><span>Incl. BTW</span><span>€ 5,85</span></div>
+          <div class="cart-row"><span>Subtotaal</span><span></span></div>
+          <div class="cart-row muted"><span>Incl. BTW</span><span></span></div>
           <div class="cart-divider"></div>
           <div class="cart-row total"><span>Totaal</span><span>€ 33,50</span></div>
         </div>
@@ -244,7 +182,7 @@
       </div>
 
       <div class="cart-footer">
-        <button class="btn-checkout">Afrekenen — € 33,50</button>
+        <button class="btn-checkout">Afrekenen</button>
       </div>
     </aside>
 

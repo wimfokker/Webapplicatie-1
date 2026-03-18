@@ -11,13 +11,13 @@
 
   <header class="site-header">
     <nav class="site-nav">
-      <a href="index.html" class="logo">Logo</a>
+      <a href="index.php" class="logo">Logo</a>
       <ul class="nav-links">
-        <li><a href="index.html">Menu</a></li>
-        <li><a href="bestellen.html" class="nav-cta">Bestellen</a></li>
+        <li><a href="index.php">Menu</a></li>
+        <li><a href="bestellen.php" class="nav-cta">Bestellen</a></li>
       </ul>
       <div class="nav-right">
-        <a href="inlog.html" class="nav-avatar">👤</a>
+        <a href="inlog.php" class="nav-avatar">👤</a>
       </div>
     </nav>
   </header>
@@ -122,10 +122,10 @@
     <div class="footer-inner">
       <div class="footer-logo">Logo</div>
       <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="bestellen.html">Bestellen</a></li>
-        <li><a href="formulier.html">Reserveer</a></li>
-        <li><a href="inlog.html">Inloggen</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="bestellen.php">Bestellen</a></li>
+        <li><a href="formulier.php">Reserveer</a></li>
+        <li><a href="inlog.php">Inloggen</a></li>
       </ul>
       <p class="footer-copy">© 2025 Restaurant. Alle rechten voorbehouden.</p>
     </div>

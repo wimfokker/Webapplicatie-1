@@ -20,8 +20,6 @@
     try {
         //Create the connnection
         $pdo = new PDO($dsn, $user, $password, $opties);
-        //succes melding
-        echo "Databse connection gelukt <br/>";
     }   catch (PDOException $e) {
         //foutmelding
         echo $e->getMessage();
