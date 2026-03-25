@@ -14,19 +14,9 @@
 
 <body class="page-wrap">
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <nav class="site-nav">
-      <a href="index.php" class="logo">Logo</a>
-      <ul class="nav-links">
-        <li><a href="index.php" class="active">Menu</a></li>
-        <li><a href="bestellen.php" class="nav-cta">Bestellen</a></li>
-      </ul>
-      <div class="nav-right">
-        <a href="inlog.php" class="nav-avatar" aria-label="Inloggen">👤</a>
-      </div>
-    </nav>
-  </header>
+  <?php
+  INCLUDE_ONCE ('header.php')
+  ?>
 
   <!-- HERO -->
   <section class="hero" aria-label="Welkomst">
@@ -41,7 +31,6 @@
           <p>Verse ingrediënten, lokale leveranciers en burgers die je niet vergeet. Simpel als dat.</p>
           <div class="hero-btns">
             <a href="bestellen.php" class="btn btn-green">Bestellen</a>
-            <a href="formulier.php" class="btn btn-outline">Reserveer</a>
           </div>
         </div>
       </div>
@@ -60,96 +49,11 @@
     </div>
   </section>
 
-  <!-- MENU PREVIEW -->
-  <section class="menu-section" id="menu">
-    <div class="container">
-      <div class="menu-head">
-        <span class="label-tag">Ons aanbod</span>
-        <h2 class="display-title">Kies je burger</h2>
-        <p class="body-lead">Elk recept is met zorg samengesteld. Verse buns, dagelijks bereid vlees en seizoensgroenten.</p>
-      </div>
-      <div class="menu-grid">
-
-        <article class="menu-card">
-          <div class="card-img">🥩<span class="card-badge">Bestseller</span></div>
-          <div class="card-body">
-            <h3>De Klassieke</h3>
-            <p>Rundergehakt, cheddar, carameliseerde ui en huisgemaakt saus op brioche bun.</p>
-            <div class="card-foot"><span class="card-price">€ 12,50</span><button class="card-add">+ Bestel</button></div>
-          </div>
-        </article>
-
-        <article class="menu-card">
-          <div class="card-img c2">🔥</div>
-          <div class="card-body">
-            <h3>De Pittige</h3>
-            <p>Dubbel patty, jalapeño, habanero mayo, ingelegde augurk en smoked gouda.</p>
-            <div class="card-foot"><span class="card-price">€ 14,50</span><button class="card-add">+ Bestel</button></div>
-          </div>
-        </article>
-
-        <article class="menu-card">
-          <div class="card-img c3">🌱<span class="card-badge">Vegetarisch</span></div>
-          <div class="card-body">
-            <h3>De Groene</h3>
-            <p>Portobello, geitenkaas, zongedroogde tomaat, rucola en yoghurtdressing.</p>
-            <div class="card-foot"><span class="card-price">€ 11,00</span><button class="card-add">+ Bestel</button></div>
-          </div>
-        </article>
-
-        <article class="menu-card">
-          <div class="card-img">🐔</div>
-          <div class="card-body">
-            <h3>De Krokante Kip</h3>
-            <p>Gebakken kipfilet, coleslaw, honing-mosterd en verse tomaat op sesam bun.</p>
-            <div class="card-foot"><span class="card-price">€ 12,00</span><button class="card-add">+ Bestel</button></div>
-          </div>
-        </article>
-
-        <article class="menu-card">
-          <div class="card-img c3">🧀</div>
-          <div class="card-body">
-            <h3>De Smoky</h3>
-            <p>Pulled beef, gerookte cheddar, BBQ saus, krokante uitjes en gebakken spek.</p>
-            <div class="card-foot"><span class="card-price">€ 15,00</span><button class="card-add">+ Bestel</button></div>
-          </div>
-        </article>
-
-        <article class="menu-card">
-          <div class="card-img c2">🐟</div>
-          <div class="card-body">
-            <h3>De Vis</h3>
-            <p>Gebakken kabeljauw, kappertjes-remoulade, ijsbergsla en citroen op potato bun.</p>
-            <div class="card-foot"><span class="card-price">€ 13,50</span><button class="card-add">+ Bestel</button></div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section" id="reserveer">
-    <div class="container">
-      <h2>Reserveer een tafel</h2>
-      <p>Kom langs en geniet van een rustig moment. Wij zorgen voor de rest.</p>
-      <a href="formulier.php" class="btn btn-white">Reserveer nu</a>
-    </div>
-  </section>
-
   <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-logo">Logo</div>
-      <ul class="footer-links">
-        <li><a href="#menu">Menu</a></li>
-        <li><a href="bestellen.php">Bestellen</a></li>
-        <li><a href="formulier.php">Reserveer</a></li>
-        <li><a href="inlog.php">Inloggen</a></li>
-      </ul>
-      <p class="footer-copy">© 2025 Restaurant. Alle rechten voorbehouden.</p>
-    </div>
-  </footer>
+
+  <?php
+  INCLUDE_ONCE ('footer.php');
+  ?>
 
 </body>
 </html>

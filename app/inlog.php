@@ -9,25 +9,16 @@
 </head>
 <body class="page-wrap">
 
-  <header class="site-header">
-    <nav class="site-nav">
-      <a href="index.php" class="logo">Logo</a>
-      <ul class="nav-links">
-        <li><a href="index.php">Menu</a></li>
-        <li><a href="bestellen.php" class="nav-cta">Bestellen</a></li>
-      </ul>
-      <div class="nav-right">
-        <a href="inlog.php" class="nav-avatar">👤</a>
-      </div>
-    </nav>
-  </header>
+  <?php
+   INCLUDE_ONCE ('header.php')
+  ?>
 
   <main class="login-wrap">
     <div class="login-card anim-1">
 
       <!-- Logo -->
       <div class="login-logo">
-        <span class="login-logo-text">Logo</span>
+        <span class="login-logo-text">Starbuns</span>
       </div>
 
       <p class="login-sub">Log in om je bestellingen te bekijken<br />en je gegevens te beheren.</p>
@@ -55,17 +46,9 @@
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-logo">Logo</div>
-      <ul class="footer-links">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="bestellen.php">Bestellen</a></li>
-        <li><a href="formulier.php">Reserveer</a></li>
-      </ul>
-      <p class="footer-copy">© 2025 Restaurant. Alle rechten voorbehouden.</p>
-    </div>
-  </footer>
+  <?php
+    INCLUDE_ONCE ('footer.php');
+  ?>
 
 </body>
 </html>

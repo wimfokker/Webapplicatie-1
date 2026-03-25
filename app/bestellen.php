@@ -1,3 +1,7 @@
+<?php
+  INCLUDE_ONCE ('database.php');
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -9,19 +13,9 @@
 
 <body>
 
-  <header class="site-header">
-    <nav class="site-nav">
-      <a href="index.php" class="logo">Logo</a>
-      <ul class="nav-links">
-        <li><a href="index.php">Menu</a></li>
-        <li><a href="bestellen.php" class="nav-cta">Bestellen</a></li>
-      </ul>
-      <div class="nav-right">
-        <button class="cart-toggle-btn" aria-label="Winkelwagen">🛒 <span class="cart-badge">3</span></button>
-        <a href="inlog.php" class="nav-avatar">👤</a>
-      </div>
-    </nav>
-  </header>
+  <?php
+    INCLUDE_ONCE ('header.php')
+  ?>
 
   <div class="order-layout">
 
@@ -33,19 +27,10 @@
         <input type="search" placeholder="Zoek een product…" aria-label="Zoeken" />
       </div>
 
-      <!-- Categorie knoppen -->
-      <div class="cat-bar" role="tablist">
-        <button class="cat-btn active" data-cat="all">Alles</button>
-        <button class="cat-btn" data-cat="burgers">🍔 Burgers</button>
-        <button class="cat-btn" data-cat="kip">🐔 Kip</button>
-        <button class="cat-btn" data-cat="veggie">🌱 Veggie</button>
-        <button class="cat-btn" data-cat="sides">🍟 Sides</button>
-        <button class="cat-btn" data-cat="dranken">🥤 Dranken</button>
-      </div>
 
-      <!-- Burgers -->
+      <!-- gerechten -->
       <section class="product-section" data-section="burgers">
-        <h2 class="section-head">Burgers</h2>
+        <h2 class="section-head">Gerechten</h2>
         <div class="product-grid">
 
           <article class="product-card" data-cat="burgers">
@@ -57,68 +42,6 @@
             </div>
             <button class="prod-add" aria-label="Toevoegen">+</button>
           </article>
-        </div>
-      </section>
-
-      <!-- Kip -->
-      <section class="product-section" data-section="kip">
-        <h2 class="section-head">Kip</h2>
-        <div class="product-grid">
-
-          <article class="product-card" data-cat="kip">
-            <div class="prod-img">🐔<span class="prod-badge">Nieuw</span></div>
-            <div class="prod-body">
-              <h3>Krokante Kip</h3>
-              <p>Kipfilet, coleslaw, honing-mosterd en verse tomaat.</p>
-              <span class="prod-price">€ 12,00</span>
-            </div>
-            <button class="prod-add" aria-label="Toevoegen">+</button>
-          </article>
-        </div>  
-      </section>
-
-      <!-- Veggie -->
-      <section class="product-section" data-section="veggie">
-        <h2 class="section-head">Veggie</h2>
-        <div class="product-grid">
-
-          <article class="product-card" data-cat="veggie">
-            <div class="prod-img c3">🌱<span class="prod-badge">Veg</span></div>
-            <div class="prod-body">
-              <h3>Groene</h3>
-              <p>Portobello, geitenkaas, zongedroogde tomaat en rucola.</p>
-              <span class="prod-price">€ 11,00</span>
-            </div>
-            <button class="prod-add" aria-label="Toevoegen">+</button>
-          </article>
-        </div>
-      </section>
-
-      <!-- Sides -->
-      <section class="product-section" data-section="sides">
-        <h2 class="section-head">Sides</h2>
-        <div class="product-grid">
-
-          <article class="product-card" data-cat="sides">
-            <div class="prod-img">🍟</div>
-            <div class="prod-body">
-              <h3>Huisfriet</h3>
-              <p>Verse friet, dagelijks gesneden met huismayonaise.</p>
-              <span class="prod-price">€ 4,00</span>
-            </div>
-            <button class="prod-add" aria-label="Toevoegen">+</button>
-          </article>
-
-          <article class="product-card" data-cat="sides">
-            <div class="prod-img c2">🧅</div>
-            <div class="prod-body">
-              <h3>Uienringen</h3>
-              <p>Krokante uienringen met bierbeslag en dipsaus.</p>
-              <span class="prod-price">€ 4,50</span>
-            </div>
-            <button class="prod-add" aria-label="Toevoegen">+</button>
-          </article>
-
         </div>
       </section>
 
@@ -136,17 +59,6 @@
             </div>
             <button class="prod-add" aria-label="Toevoegen">+</button>
           </article>
-
-          <article class="product-card" data-cat="dranken">
-            <div class="prod-img c2">🍺</div>
-            <div class="prod-body">
-              <h3>Lokaal Bier</h3>
-              <p>Wisselend lokaal bier op tap of gebotteld.</p>
-              <span class="prod-price">€ 4,50</span>
-            </div>
-            <button class="prod-add" aria-label="Toevoegen">+</button>
-          </article>
-
         </div>
       </section>
 
