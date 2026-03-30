@@ -27,10 +27,9 @@
         <div class="hero-thumb">🍔</div>
         <div class="hero-text">
           <span class="eyebrow">Restaurant · Nijmegen</span>
-          <h1>Puur, eerlijk<br />& <em>smaakvol</em></h1>
-          <p>Verse ingrediënten, lokale leveranciers en burgers die je niet vergeet. Simpel als dat.</p>
+          <h1>Bugers<br />& <em>tasteful</em></h1>
           <div class="hero-btns">
-            <a href="bestellen.php" class="btn btn-green">Bestellen</a>
+            <a href="menu.php" class="btn btn-green">menu</a>
           </div>
         </div>
       </div>
@@ -38,10 +37,10 @@
       <!-- Rechts: grote afbeelding -->
       <div class="hero-right anim-2">
         <div class="hero-img-main">
-          🥩
+          🍔
           <div class="hero-img-badge">
-            <span>Vandaag aanbevolen</span>
-            <strong>De Klassieke — € 12,50</strong>
+            <span>Voor van daag</span>
+            <strong>Double Smash Buger</strong>
           </div>
         </div>
       </div>

@@ -1,21 +1,24 @@
 <?php
-  INCLUDE_ONCE ('database.php');
+include_once('database.php');
 ?>
 
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bestellen</title>
+  <title>menu</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
   <?php
-    INCLUDE_ONCE ('header.php')
+  include_once('header.php')
   ?>
+
+  <!-- Haal gerechten tabel van de database in de bestelling.-->
 
   <div class="order-layout">
 
@@ -33,15 +36,28 @@
         <h2 class="section-head">Gerechten</h2>
         <div class="product-grid">
 
+          <?php
+            $statement = $pdo->query("SELECT * FROM gerechten");
+            $gerechten = $statement->fetchAll(PDO::FETCH_ASSOC);
+            foreach($gerechten as $gerecht){
+
+            $titel = htmlspecialchars($gerecht["titel"]);
+            $prijs = htmlspecialchars($gerecht["prijs"]);
+            $icon = htmlspecialchars($gerecht["icon"]);
+            $info = htmlspecialchars($gerecht["info"]);
+          ?>
+
           <article class="product-card" data-cat="burgers">
-            <div class="prod-img">🥩<span class="prod-badge">Top</span></div>
+            <div class="prod-img"> <?php echo $icon ?></div>
             <div class="prod-body">
-              <h3>Klassieke</h3>
-              <p>Rundergehakt, cheddar, carameliseerde ui op brioche bun.</p>
-              <span class="prod-price">€ 12,50</span>
+              <h3><?php echo $titel?></h3>
+              <p><?php echo $info ?></p>
+              <span class="prod-price">€<?php echo $prijs ?></span>
             </div>
             <button class="prod-add" aria-label="Toevoegen">+</button>
           </article>
+          
+          <?php }?>
         </div>
       </section>
 
@@ -50,31 +66,44 @@
         <h2 class="section-head">Dranken</h2>
         <div class="product-grid">
 
+                  <?php
+            $statement = $pdo->query("SELECT * FROM drankjes");
+            $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
+            foreach($drankjes as $drank){
+
+            $titel = htmlspecialchars($drank["titel"]);
+            $prijs = htmlspecialchars($drank["prijs"]);
+            $icon = htmlspecialchars($drank["icon"]);
+            $info = htmlspecialchars($drank["info"]);
+          ?>
+
           <article class="product-card" data-cat="dranken">
-            <div class="prod-img">🥤</div>
+            <div class="prod-img"><?php echo $icon ?></div>
             <div class="prod-body">
-              <h3>Frisdrank</h3>
-              <p>Cola, Fanta, Sprite of water naar keuze.</p>
-              <span class="prod-price">€ 3,00</span>
+              <h3><?php echo $titel ?></h3>
+              <p><?php echo $info ?></p>
+              <span class="prod-price">€ <?php echo $prijs ?></span>
             </div>
             <button class="prod-add" aria-label="Toevoegen">+</button>
           </article>
+
+          <?php }?>
         </div>
       </section>
 
     </main>
 
-    <!-- WINKELWAGEN RECHTS -->
+    <!-- WINKELWAGEN RECHTS werkt niet-->
     <aside class="cart-col" id="cart" aria-label="Winkelwagen">
       <div class="cart-scroll">
         <div class="cart-title">
-          Jouw bestelling
+          (Winkelwagen werkt niet want ik heb geen tijd om het te maken voor deze perioden.)
           <button class="cart-close-btn" aria-label="Sluiten">✕</button>
         </div>
 
         <ul class="cart-items">
           <li class="cart-item">
-            <div class="ci-info"><span class="ci-name">De Klassieke</span><span class="ci-desc">Standaard</span></div>
+            <div class="ci-info"><span class="ci-name"></span>Cheese buger<span class="ci-desc">Standaart</span></div>
             <div class="ci-controls"><button class="qty-btn">−</button><span class="qty-num">2</span><button class="qty-btn">+</button></div>
             <span class="ci-price"></span>
           </li>
@@ -102,29 +131,8 @@
 
   <div class="cart-overlay"></div>
 
-  <script>
-    // Categorie filter
-    document.querySelectorAll('.cat-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const cat = btn.dataset.cat;
-        document.querySelectorAll('.product-section').forEach(s => {
-          s.style.display = (cat === 'all' || s.dataset.section === cat) ? '' : 'none';
-        });
-      });
-    });
-    // Mobiel cart
-    const cart    = document.getElementById('cart');
-    const overlay = document.querySelector('.cart-overlay');
-    const openBtn = document.querySelector('.cart-toggle-btn');
-    const closeBtn = document.querySelector('.cart-close-btn');
-    function openCart()  { cart.classList.add('open');    overlay.classList.add('visible');    document.body.style.overflow = 'hidden'; }
-    function closeCart() { cart.classList.remove('open'); overlay.classList.remove('visible'); document.body.style.overflow = ''; }
-    openBtn.addEventListener('click', openCart);
-    closeBtn.addEventListener('click', closeCart);
-    overlay.addEventListener('click', closeCart);
-  </script>
+  <?php include_once('footer.php') ?>
 
 </body>
+
 </html>
