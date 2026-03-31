@@ -39,15 +39,8 @@
           <span class="admin-search-icon">🔍</span>
           <input type="search" placeholder="Zoek gerecht…" class="admin-search-input" />
         </div>
-        <div class="admin-cat-bar">
-          <button class="cat-btn active">Alles</button>
-          <button class="cat-btn">Burgers</button>
-          <button class="cat-btn">Sides</button>
-          <button class="cat-btn">Dranken</button>
-          <button class="cat-btn">Desserts</button>
-        </div>
       </div>
-
+      
       <!-- Gerechten tabel -->
       <section class="admin-table-section">
         <table class="admin-table">

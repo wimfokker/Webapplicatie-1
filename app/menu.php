@@ -2,6 +2,16 @@
 include_once('database.php');
 ?>
 
+<?php 
+
+print_r($_GET);
+
+if (isset($_GET["search"]) && $_GET["search"] !== "") {
+  echo "formulier is gebruikt, ik moet gaan zoeken";
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -26,9 +36,12 @@ include_once('database.php');
     <main class="menu-col">
 
       <!-- Zoekbalk -->
-      <div class="search-bar">
-        <input type="search" placeholder="Zoek een product…" aria-label="Zoeken" />
-      </div>
+
+      <form name="zoekform" action="index.php" method="get">
+        <div class="search-bar">
+          <input type="search" placeholder="Zoek een product…" aria-label="Zoeken" />
+        </div>
+      </form>
 
 
       <!-- gerechten -->

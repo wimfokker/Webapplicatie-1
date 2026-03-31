@@ -27,7 +27,7 @@
         <div class="hero-thumb">🍔</div>
         <div class="hero-text">
           <span class="eyebrow">Restaurant · Nijmegen</span>
-          <h1>Bugers<br />& <em>tasteful</em></h1>
+          <h1>Burgers<br />& <em>tasteful</em></h1>
           <div class="hero-btns">
             <a href="menu.php" class="btn btn-green">menu</a>
           </div>
