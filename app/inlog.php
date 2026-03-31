@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+$_SESSION["isUserLoggedIn"] = true;
+
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -28,6 +35,15 @@
         <div class="field">
           <label for="email">E-mailadres</label>
           <input type="email" id="email"/>
+
+          <?php 
+          
+          echo "<pre>";
+          print_r($_SESSION);
+          "</pre>";
+
+          ?>
+
         </div>
         <div class="field">
           <label for="wachtwoord">Wachtwoord</label>

@@ -875,23 +875,9 @@ body {
   letter-spacing: 0.04em;
 }
 
-.cat-burger  { background: #e8f5ef; color: var(--green); }
-.cat-side    { background: #f0f5f2; color: #2a6644; }
-.cat-drink   { background: #e8f0f5; color: #2a4a66; }
-.cat-dessert { background: #f5f0e8; color: #7a5a2a; }
+.cat-Gerechten  { background: #e8f5ef; color: var(--green); }
+.cat-Dranken   { background: #e8f0f5; color: #2a4a66; }
 
-/* Status pill */
-.status-pill {
-  display: inline-block;
-  padding: 0.22rem 0.65rem;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-}
-
-.status-on  { background: #e8f5ef; color: var(--green); }
-.status-off { background: #f5f5f5; color: var(--gray-light); }
 
 /* Actie knoppen */
 .td-actions {
@@ -1125,7 +1111,6 @@ body {
   }
 
   .col-cat    { display: none; }
-  .col-status { display: none; }
 
   .modal-card {
     max-width: 100%;

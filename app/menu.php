@@ -36,10 +36,9 @@ if (isset($_GET["search"]) && $_GET["search"] !== "") {
     <main class="menu-col">
 
       <!-- Zoekbalk -->
-
       <form name="zoekform" action="index.php" method="get">
         <div class="search-bar">
-          <input type="search" placeholder="Zoek een product…" aria-label="Zoeken" />
+        <input type="search" name="search" value="<?php echo ($_GET['search'] ?? ''); ?>" placeholder="Zoek" aria-label="Zoeken" />
         </div>
       </form>
 

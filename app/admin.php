@@ -40,7 +40,7 @@
           <input type="search" placeholder="Zoek gerecht…" class="admin-search-input" />
         </div>
       </div>
-      
+
       <!-- Gerechten tabel -->
       <section class="admin-table-section">
         <table class="admin-table">
@@ -51,7 +51,6 @@
               <th class="col-cat">Categorie</th>
               <th class="col-desc">Omschrijving</th>
               <th class="col-price">Prijs</th>
-              <th class="col-status">Status</th>
               <th class="col-actions"></th>
             </tr>
           </thead>
@@ -64,7 +63,6 @@
               <td><span class="cat-pill cat-burger">Burger</span></td>
               <td class="td-desc">Runderburger, cheddar, sla, tomaat, huissaus</td>
               <td class="td-price">€ 12,50</td>
-              <td><span class="status-pill status-on">Actief</span></td>
               <td class="td-actions">
                 <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
                 <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
@@ -78,7 +76,6 @@
               <td><span class="cat-pill cat-burger">Burger</span></td>
               <td class="td-desc">Plantaardig patty, avocado, rode ui, dijonsaus</td>
               <td class="td-price">€ 13,00</td>
-              <td><span class="status-pill status-on">Actief</span></td>
               <td class="td-actions">
                 <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
                 <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
@@ -92,7 +89,6 @@
               <td><span class="cat-pill cat-side">Side</span></td>
               <td class="td-desc">Huisgemaakte friet met kruidenzout</td>
               <td class="td-price">€ 4,50</td>
-              <td><span class="status-pill status-on">Actief</span></td>
               <td class="td-actions">
                 <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
                 <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
@@ -106,7 +102,6 @@
               <td><span class="cat-pill cat-drink">Drank</span></td>
               <td class="td-desc">Verse limonade met munt en gember</td>
               <td class="td-price">€ 3,75</td>
-              <td><span class="status-pill status-off">Inactief</span></td>
               <td class="td-actions">
                 <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
                 <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
@@ -120,7 +115,6 @@
               <td><span class="cat-pill cat-dessert">Dessert</span></td>
               <td class="td-desc">Romig softijs in een wafelhoorn</td>
               <td class="td-price">€ 3,00</td>
-              <td><span class="status-pill status-on">Actief</span></td>
               <td class="td-actions">
                 <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
                 <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
@@ -162,17 +156,8 @@
             <label class="field-label" for="add-cat">Categorie</label>
             <select id="add-cat" class="field-input field-select">
               <option value="">— Kies categorie —</option>
-              <option>Burger</option>
-              <option>Side</option>
-              <option>Drank</option>
-              <option>Dessert</option>
-            </select>
-          </div>
-          <div class="field-group field-sm">
-            <label class="field-label" for="add-status">Status</label>
-            <select id="add-status" class="field-input field-select">
-              <option>Actief</option>
-              <option>Inactief</option>
+              <option>Gerechten</option>
+              <option>Dranken</option>
             </select>
           </div>
         </div>
@@ -223,17 +208,8 @@
           <div class="field-group">
             <label class="field-label" for="edit-cat">Categorie</label>
             <select id="edit-cat" class="field-input field-select">
-              <option>Burger</option>
-              <option>Side</option>
-              <option>Drank</option>
-              <option>Dessert</option>
-            </select>
-          </div>
-          <div class="field-group field-sm">
-            <label class="field-label" for="edit-status">Status</label>
-            <select id="edit-status" class="field-input field-select">
-              <option>Actief</option>
-              <option>Inactief</option>
+              <option>Gerechten</option>
+              <option>Dranken</option>
             </select>
           </div>
         </div>
