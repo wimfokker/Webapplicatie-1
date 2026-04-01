@@ -2,6 +2,16 @@
   INCLUDE_ONCE ('database.php');
 ?>
 
+<?php 
+$statement = $pdo->query("SELECT * FROM gerechten");
+$gerechten = $statement->fetchAll(PDO::FETCH_ASSOC);
+echo "aantal gerechten: " . count($gerechten);
+
+$statement = $pdo->query("SELECT * FROM drankjes");
+$gerechten = $statement->fetchAll(PDO::FETCH_ASSOC);
+echo "aantal drankjes: " . count($drankjes);
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -37,9 +47,12 @@
       <div class="admin-toolbar">
         <div class="admin-search">
           <span class="admin-search-icon">🔍</span>
-          <input type="search" placeholder="Zoek gerecht…" class="admin-search-input" />
+          <form action="beheer.php" method="get">
+          <input type="search" name="search" value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>" placeholder="Zoek gerecht…" class="admin-search-input" oninput="this.form.submit()" />
+          </form>
         </div>
       </div>
+
 
       <!-- Gerechten tabel -->
       <section class="admin-table-section">
@@ -56,65 +69,46 @@
           </thead>
           <tbody>
 
-            <!-- Rij 1 -->
+            <?php 
+            $statement = $pdo->query("SELECT * FROM gerechten");
+            $gerechten = $statement->fetchALL (PDO::FETCH_ASSOC);
+            
+            foreach($gerechten as $gerecht) {
+            $titel = htmlspecialchars($gerecht["titel"]);
+            $prijs = htmlspecialchars($gerecht["prijs"]);
+            $icon = htmlspecialchars($gerecht["icon"]);
+            $info = htmlspecialchars($gerecht["info"]);
+            } ?>
+
             <tr>
-              <td><div class="table-thumb" style="background:#e8f5ef;">🍔</div></td>
-              <td class="td-name">The Classic</td>
-              <td><span class="cat-pill cat-burger">Burger</span></td>
-              <td class="td-desc">Runderburger, cheddar, sla, tomaat, huissaus</td>
-              <td class="td-price">€ 12,50</td>
+              <td><div class="table-thumb"<?php echo $icon ?></div></td>
+              <td class="td-name"><?php echo $titel ?></td>
+              <td><span class="cat-pill cat-burger">Gerechten</span></td>
+              <td class="td-desc"><?php echo $info ?></td>
+              <td class="td-price">€<?php echo $prijs ?></td>
               <td class="td-actions">
                 <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
                 <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
               </td>
             </tr>
 
-            <!-- Rij 2 -->
+            <?php 
+            $statement = $pdo->query("SELECT * FROM drankjes");
+            $drankjes = $statement->fetchALL (PDO::FETCH_ASSOC);
+            
+            foreach($drankjes as $drank) {
+            $titel = htmlspecialchars($drank["titel"]);
+            $prijs = htmlspecialchars($drank["prijs"]);
+            $icon = htmlspecialchars($drank["icon"]);
+            $info = htmlspecialchars($drank["info"]);
+            } ?>
+            
             <tr>
-              <td><div class="table-thumb" style="background:#f5f0e8;">🥬</div></td>
-              <td class="td-name">The Garden</td>
-              <td><span class="cat-pill cat-burger">Burger</span></td>
-              <td class="td-desc">Plantaardig patty, avocado, rode ui, dijonsaus</td>
-              <td class="td-price">€ 13,00</td>
-              <td class="td-actions">
-                <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
-                <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
-              </td>
-            </tr>
-
-            <!-- Rij 3 -->
-            <tr>
-              <td><div class="table-thumb" style="background:#f0f5f2;">🍟</div></td>
-              <td class="td-name">Crispy Fries</td>
-              <td><span class="cat-pill cat-side">Side</span></td>
-              <td class="td-desc">Huisgemaakte friet met kruidenzout</td>
-              <td class="td-price">€ 4,50</td>
-              <td class="td-actions">
-                <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
-                <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
-              </td>
-            </tr>
-
-            <!-- Rij 4 -->
-            <tr>
-              <td><div class="table-thumb" style="background:#e8f5ef;">🥤</div></td>
-              <td class="td-name">Huislemonade</td>
-              <td><span class="cat-pill cat-drink">Drank</span></td>
-              <td class="td-desc">Verse limonade met munt en gember</td>
-              <td class="td-price">€ 3,75</td>
-              <td class="td-actions">
-                <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
-                <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
-              </td>
-            </tr>
-
-            <!-- Rij 5 -->
-            <tr>
-              <td><div class="table-thumb" style="background:#f5f0e8;">🍦</div></td>
-              <td class="td-name">Vanilla Softijs</td>
-              <td><span class="cat-pill cat-dessert">Dessert</span></td>
-              <td class="td-desc">Romig softijs in een wafelhoorn</td>
-              <td class="td-price">€ 3,00</td>
+              <td><div class="table-thumb"<?php echo $icon ?></div></td>
+              <td class="td-name"><?php echo $titel ?></td>
+              <td><span class="cat-pill cat-drink">Drankjes</span></td>
+              <td class="td-desc"><?php echo $info ?></td>
+              <td class="td-price">€<?php echo $prijs ?></td>
               <td class="td-actions">
                 <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
                 <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>

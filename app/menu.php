@@ -2,6 +2,12 @@
 include_once('database.php');
 ?>
 
+<?php
+// Bovenaan je PHP, na include_once('database.php')
+$zoekterm = trim($_GET['search'] ?? '');
+$zoekWildcard = '%' . $zoekterm . '%';
+?>
+
 <?php 
 
 print_r($_GET);
@@ -36,7 +42,7 @@ if (isset($_GET["search"]) && $_GET["search"] !== "") {
     <main class="menu-col">
 
       <!-- Zoekbalk -->
-      <form name="zoekform" action="index.php" method="get">
+      <form name="zoekform" action="menu.php" method="get">
         <div class="search-bar">
         <input type="search" name="search" value="<?php echo ($_GET['search'] ?? ''); ?>" placeholder="Zoek" aria-label="Zoeken" />
         </div>
@@ -49,7 +55,8 @@ if (isset($_GET["search"]) && $_GET["search"] !== "") {
         <div class="product-grid">
 
           <?php
-            $statement = $pdo->query("SELECT * FROM gerechten");
+            $statement = $pdo->prepare("SELECT * FROM gerechten WHERE titel LIKE ? OR info LIKE ?");
+            $statement->execute([$zoekWildcard, $zoekWildcard]);
             $gerechten = $statement->fetchAll(PDO::FETCH_ASSOC);
             foreach($gerechten as $gerecht){
 
@@ -78,8 +85,9 @@ if (isset($_GET["search"]) && $_GET["search"] !== "") {
         <h2 class="section-head">Dranken</h2>
         <div class="product-grid">
 
-                  <?php
-            $statement = $pdo->query("SELECT * FROM drankjes");
+          <?php
+            $statement = $pdo->prepare("SELECT * FROM drankjes WHERE titel LIKE ? OR info LIKE ?");
+            $statement->execute([$zoekWildcard, $zoekWildcard]);
             $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
             foreach($drankjes as $drank){
 
