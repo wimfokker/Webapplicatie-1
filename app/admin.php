@@ -2,14 +2,43 @@
   INCLUDE_ONCE ('database.php');
 ?>
 
-<?php 
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+  if ($_POST['actie'] === 'toevoegen') {
+    $statement = $pdo->prepare("INSERT INTO gerechten (titel, prijs, info, icon) VALUES (?, ?, ?, ?)");
+    $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon']]);
+    header('Location: admin.php');
+    exit;
+  }
+
+  if ($_POST['actie'] === 'verwijderen') {
+    $statement = $pdo->prepare("DELETE FROM gerechten WHERE id = ?");
+    $statement->execute([$_POST['id']]);
+    header('Location: admin.php');
+    exit;
+  }
+
+  if ($_POST['actie'] === 'verwijderen_drank') {
+    $statement = $pdo->prepare("DELETE FROM drankjes WHERE id = ?");
+    $statement->execute([$_POST['id']]);
+    header('Location: admin.php');
+    exit;
+  }
+
+  if ($_POST['actie'] === 'bewerken') {
+    $statement = $pdo->prepare("UPDATE gerechten SET titel=?, prijs=?, info=?, icon=? WHERE id=?");
+    $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon'], $_POST['id']]);
+    header('Location: admin.php');
+    exit;
+  }
+}
+
 $statement = $pdo->query("SELECT * FROM gerechten");
 $gerechten = $statement->fetchAll(PDO::FETCH_ASSOC);
-echo "aantal gerechten: " . count($gerechten);
 
 $statement = $pdo->query("SELECT * FROM drankjes");
-$gerechten = $statement->fetchAll(PDO::FETCH_ASSOC);
-echo "aantal drankjes: " . count($drankjes);
+$drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -43,17 +72,6 @@ echo "aantal drankjes: " . count($drankjes);
         </button>
       </header>
 
-      <!-- Filter / zoekbalk boven tabel -->
-      <div class="admin-toolbar">
-        <div class="admin-search">
-          <span class="admin-search-icon">🔍</span>
-          <form action="beheer.php" method="get">
-          <input type="search" name="search" value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>" placeholder="Zoek gerecht…" class="admin-search-input" oninput="this.form.submit()" />
-          </form>
-        </div>
-      </div>
-
-
       <!-- Gerechten tabel -->
       <section class="admin-table-section">
         <table class="admin-table">
@@ -71,14 +89,15 @@ echo "aantal drankjes: " . count($drankjes);
 
             <?php 
             $statement = $pdo->query("SELECT * FROM gerechten");
-            $gerechten = $statement->fetchALL (PDO::FETCH_ASSOC);
+            $gerechten = $statement->fetchAll(PDO::FETCH_ASSOC);
             
             foreach($gerechten as $gerecht) {
             $titel = htmlspecialchars($gerecht["titel"]);
             $prijs = htmlspecialchars($gerecht["prijs"]);
             $icon = htmlspecialchars($gerecht["icon"]);
             $info = htmlspecialchars($gerecht["info"]);
-            } ?>
+            $id    = htmlspecialchars($gerecht["id"]);
+             ?>
 
             <tr>
               <td><div class="table-thumb"<?php echo $icon ?></div></td>
@@ -87,21 +106,27 @@ echo "aantal drankjes: " . count($drankjes);
               <td class="td-desc"><?php echo $info ?></td>
               <td class="td-price">€<?php echo $prijs ?></td>
               <td class="td-actions">
-                <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
-                <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
+                <a href="bewerken.php?id=<?php echo $id ?>" class="action-btn edit-btn" title="Bewerken">✏️</a>
+                <form action="admin.php" method="post" style="display:inline">
+                  <input type="hidden" name="actie" value="verwijderen" />
+                  <input type="hidden" name="id" value="<?php echo $id ?>" />
+                  <button type="submit" class="action-btn del-btn" title="Verwijderen">🗑️</button>
+                </form>
               </td>
             </tr>
+            <?php } ?>
 
             <?php 
             $statement = $pdo->query("SELECT * FROM drankjes");
-            $drankjes = $statement->fetchALL (PDO::FETCH_ASSOC);
+            $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
             
             foreach($drankjes as $drank) {
             $titel = htmlspecialchars($drank["titel"]);
             $prijs = htmlspecialchars($drank["prijs"]);
             $icon = htmlspecialchars($drank["icon"]);
             $info = htmlspecialchars($drank["info"]);
-            } ?>
+            $id    = htmlspecialchars($drank["id"]);
+            ?>
             
             <tr>
               <td><div class="table-thumb"<?php echo $icon ?></div></td>
@@ -110,10 +135,15 @@ echo "aantal drankjes: " . count($drankjes);
               <td class="td-desc"><?php echo $info ?></td>
               <td class="td-price">€<?php echo $prijs ?></td>
               <td class="td-actions">
-                <button class="action-btn edit-btn" onclick="openEdit(this)" title="Bewerken">✏️</button>
-                <button class="action-btn del-btn" onclick="openDelete(this)" title="Verwijderen">🗑️</button>
+                <a href="bewerken.php?id=<?php echo $id ?>" class="action-btn edit-btn" title="Bewerken">✏️</a>
+                <form action="admin.php" method="post" style="display:inline">
+                  <input type="hidden" name="actie" value="verwijderen_drank" />
+                  <input type="hidden" name="id" value="<?php echo $id ?>" />
+                  <button type="submit" class="action-btn del-btn" title="Verwijderen">🗑️</button>
+                </form>
               </td>
             </tr>
+            <?php } ?>
 
           </tbody>
         </table>
@@ -122,58 +152,42 @@ echo "aantal drankjes: " . count($drankjes);
     </div><!-- /admin-inner -->
   </main>
 
-  <!-- ═══════════════════════════════════════
-       MODAL — GERECHT TOEVOEGEN
-  ════════════════════════════════════════ -->
+  <!--gerecht toevoegen-->
   <div id="modal-add" class="modal-backdrop" onclick="closeModalBackdrop(event,'modal-add')">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-add-title">
-
-      <div class="modal-head">
-        <h2 id="modal-add-title" class="modal-title">Gerecht toevoegen</h2>
-        <button class="modal-close" onclick="document.getElementById('modal-add').classList.remove('modal-open')" aria-label="Sluiten">✕</button>
-      </div>
-
-      <div class="modal-body">
-        <div class="field-row">
-          <div class="field-group">
-            <label class="field-label" for="add-naam">Naam</label>
-            <input id="add-naam" class="field-input" type="text" placeholder="bijv. Double Smash" />
-          </div>
-          <div class="field-group field-sm">
-            <label class="field-label" for="add-prijs">Prijs (€)</label>
-            <input id="add-prijs" class="field-input" type="number" step="0.01" placeholder="0,00" />
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div class="field-group">
-            <label class="field-label" for="add-cat">Categorie</label>
-            <select id="add-cat" class="field-input field-select">
-              <option value="">— Kies categorie —</option>
-              <option>Gerechten</option>
-              <option>Dranken</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label" for="add-desc">Omschrijving</label>
-          <textarea id="add-desc" class="field-input field-textarea" rows="3" placeholder="Korte beschrijving van het gerecht…"></textarea>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label" for="add-emoji">Emoji / icoon</label>
-          <input id="add-emoji" class="field-input" type="text" placeholder="bijv. 🍔" maxlength="4" />
-        </div>
-      </div>
-
-      <div class="modal-foot">
-        <button class="btn btn-ghost" onclick="document.getElementById('modal-add').classList.remove('modal-open')">Annuleren</button>
-        <button class="btn btn-green">Opslaan</button>
-      </div>
-
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2 class="modal-title">Gerecht toevoegen</h2>
+      <button class="modal-close" onclick="document.getElementById('modal-add').classList.remove('modal-open')">✕</button>
     </div>
+
+    <form action="admin.php" method="post">
+      <input type="hidden" name="actie" value="toevoegen" />
+      <div class="modal-body">
+        <div class="field-group">
+          <label class="field-label">Naam</label>
+          <input name="titel" class="field-input" type="text" placeholder="bijv. Double Smash" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Prijs (€)</label>
+          <input name="prijs" class="field-input" type="number" step="0.01" />
+        </div>
+        <div class="field-group">
+          <label class="field-label">Omschrijving</label>
+          <textarea name="info" class="field-input field-textarea" rows="3"></textarea>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Emoji / icoon</label>
+          <input name="icon" class="field-input" type="text" maxlength="4" />
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-ghost" onclick="document.getElementById('modal-add').classList.remove('modal-open')">Annuleren</button>
+        <button type="submit" class="btn btn-green">Opslaan</button>
+      </div>
+    </form>
+
   </div>
+</div>
 
   <!-- ═══════════════════════════════════════
        MODAL — GERECHT BEWERKEN
@@ -226,29 +240,6 @@ echo "aantal drankjes: " . count($drankjes);
 
     </div>
   </div>
-
-  <!-- ═══════════════════════════════════════
-       MODAL — VERWIJDER BEVESTIGING
-  ════════════════════════════════════════ -->
-  <div id="modal-delete" class="modal-backdrop" onclick="closeModalBackdrop(event,'modal-delete')">
-    <div class="modal-card modal-card-sm" role="dialog" aria-modal="true" aria-labelledby="modal-del-title">
-
-      <div class="modal-head">
-        <h2 id="modal-del-title" class="modal-title">Gerecht verwijderen</h2>
-        <button class="modal-close" onclick="document.getElementById('modal-delete').classList.remove('modal-open')" aria-label="Sluiten">✕</button>
-      </div>
-
-      <div class="modal-body">
-        <p class="modal-confirm-text">Weet je zeker dat je <strong id="del-name">dit gerecht</strong> wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.</p>
-      </div>
-
-      <div class="modal-foot">
-        <button class="btn btn-ghost" onclick="document.getElementById('modal-delete').classList.remove('modal-open')">Annuleren</button>
-        <button class="btn btn-danger">Verwijderen</button>
-      </div>
-
-    </div>
-  </div>
-
+  
 </body>
 </html>
