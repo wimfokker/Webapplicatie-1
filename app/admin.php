@@ -1,9 +1,7 @@
 <?php
   INCLUDE_ONCE ('database.php');
-?>
 
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if ($_POST['actie'] === 'toevoegen') {
     $statement = $pdo->prepare("INSERT INTO gerechten (titel, prijs, info, icon) VALUES (?, ?, ?, ?)");
@@ -53,7 +51,22 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
 
   <!-- ── HEADER ─────────────────────────────────── -->
 
-  <?php INCLUDE_ONCE ('header.php'); ?>
+  <header class="site-header">
+    <nav class="site-nav">
+        <a href="index.php" class="logo">Starbuns</a>
+        <ul class="nav-links">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="menu.php" class="nav-cta">menu</a></li>
+            <li><a href="admin.php">admin</a><li>
+            <li><a href="index.php">uitloggen</a><li>
+
+        </ul>
+        <div class="nav-right">
+            </div>
+            <a href="admin.php" class="nav-avatar">👤</a>
+        </div>
+    </nav>
+  </header>
 
   <!-- ── PAGINA INHOUD ──────────────────────────── -->
   <main class="admin-wrap page-wrap">
@@ -96,7 +109,7 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
             $prijs = htmlspecialchars($gerecht["prijs"]);
             $icon = htmlspecialchars($gerecht["icon"]);
             $info = htmlspecialchars($gerecht["info"]);
-            $id    = htmlspecialchars($gerecht["id"]);
+            $id = htmlspecialchars($gerecht["id"]);
              ?>
 
             <tr>
@@ -125,7 +138,7 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
             $prijs = htmlspecialchars($drank["prijs"]);
             $icon = htmlspecialchars($drank["icon"]);
             $info = htmlspecialchars($drank["info"]);
-            $id    = htmlspecialchars($drank["id"]);
+            $id = htmlspecialchars($drank["id"]);
             ?>
             
             <tr>

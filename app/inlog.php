@@ -1,10 +1,3 @@
-<?php
-
-session_start();
-$_SESSION["isUserLoggedIn"] = true;
-
-?>
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -24,47 +17,34 @@ $_SESSION["isUserLoggedIn"] = true;
     <div class="login-card anim-1">
 
       <!-- Logo -->
-      <div class="login-logo">
-        <span class="login-logo-text">Starbuns</span>
-      </div>
+    <div class="login-logo">
+      <span class="login-logo-text">Starbuns</span>
+    </div>
 
-      <p class="login-sub">Log in om je bestellingen te bekijken<br />en je gegevens te beheren.</p>
+    <p class="login-sub">Log in om je bestellingen te bekijken<br />en je gegevens te beheren.</p>
 
-      <!-- Velden -->
+    <!-- Velden -->
+
+    <form action="admin.php" method="post">
       <div class="login-fields">
         <div class="field">
           <label for="email">E-mailadres</label>
-          <input type="email" id="email"/>
-
-          <?php 
-          
-          echo "<pre>";
-          print_r($_SESSION);
-          "</pre>";
-
-          ?>
-
+          <input type="email" name="email" id="email"/>
         </div>
         <div class="field">
           <label for="wachtwoord">Wachtwoord</label>
-          <input type="password" id="wachtwoord"/>
+          <input type="password" name="wachtwoord" id="wachtwoord" />
         </div>
-        <a href="#" class="forgot-link">Wachtwoord vergeten?</a>
       </div>
-
-      <!-- Knoppen — zoals wireframe: twee knoppen onder elkaar -->
       <div class="login-actions">
-        <button type="button" class="btn btn-green btn-full">Inloggen</button>
-        <div class="divider">of</div>
-        <a href="#" class="btn btn-ghost btn-full">Nog geen account? Registreer</a>
+        <button type="submit" class="btn btn-green btn-full">Inloggen</button>
       </div>
+    </form>  
 
-    </div>
   </main>
-
+    
   <?php
     INCLUDE_ONCE ('footer.php');
   ?>
-
 </body>
 </html>
