@@ -1,3 +1,25 @@
+<?php session_start();
+
+include_once('database.php');
+
+if (isset($_POST['email'], $_POST['wachtwoord'])) {
+  $statement = $pdo->prepare("SELECT * FROM gebruikers WHERE email = ?");
+  $statement -> execute([$_POST ['email']]);
+  $gebruiker = $statement->fetch(); 
+
+
+  if ($gebruiker && $_POST['wachtwoord'] === $gebruiker['wachtwoord']) {
+    $_SESSION['ingeloged'] = true;
+    header('location: admin.php');
+    exit;
+  } else { $fout = "verkeerde email of wachtwoord.";
+
+  }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -25,7 +47,7 @@
 
     <!-- Velden -->
 
-    <form action="admin.php" method="post">
+    <form action="inlog.php" method="post">
       <div class="login-fields">
         <div class="field">
           <label for="email">E-mailadres</label>

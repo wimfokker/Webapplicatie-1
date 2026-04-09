@@ -3,7 +3,7 @@ include_once('database.php');
 ?>
 
 <?php
-// Bovenaan je PHP, na include_once('database.php')
+// Je zet altijd een zoek term bovenaan je PHP, na include_once('database.php')
 $zoekterm = trim($_GET['search'] ?? '');
 $zoekWildcard = '%' . $zoekterm . '%';
 ?>

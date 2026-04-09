@@ -1,7 +1,12 @@
-<?php
-  INCLUDE_ONCE ('database.php');
+<?php session_start();
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (!isset($_SESSION['ingeloged']) || $_SESSION['ingeloged'] !== true) {
+    header ('location: inlog.php');
+    exit;
+  }
+
+ include_once ('database.php');
+
 
   if ($_POST['actie'] === 'toevoegen') {
     $statement = $pdo->prepare("INSERT INTO gerechten (titel, prijs, info, icon) VALUES (?, ?, ?, ?)");
@@ -28,8 +33,7 @@
     $statement = $pdo->prepare("UPDATE gerechten SET titel=?, prijs=?, info=?, icon=? WHERE id=?");
     $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon'], $_POST['id']]);
     header('Location: admin.php');
-    exit;
-  }
+  exit;
 }
 
 $statement = $pdo->query("SELECT * FROM gerechten");
@@ -58,7 +62,7 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
             <li><a href="index.php">Home</a></li>
             <li><a href="menu.php" class="nav-cta">menu</a></li>
             <li><a href="admin.php">admin</a><li>
-            <li><a href="index.php">uitloggen</a><li>
+            <li><a href="loguit.php">uitloggen</a><li>
 
         </ul>
         <div class="nav-right">
@@ -110,7 +114,7 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
             $icon = htmlspecialchars($gerecht["icon"]);
             $info = htmlspecialchars($gerecht["info"]);
             $id = htmlspecialchars($gerecht["id"]);
-             ?>
+            ?>
 
             <tr>
               <td><div class="table-thumb"<?php echo $icon ?></div></td>

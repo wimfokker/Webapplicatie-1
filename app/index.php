@@ -1,7 +1,3 @@
-<?php
-  INCLUDE_ONCE ('database.php');
-?>
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>

@@ -1,5 +1,4 @@
 <?php 
-
     $host = 'db';
     $db = 'mydatabase';
     $user = 'user';
@@ -26,4 +25,5 @@
         // stop (die)
         die("Sorry, database probleem");
     }
-?>    
+    
+?>
