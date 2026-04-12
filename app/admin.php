@@ -9,7 +9,8 @@
 
 
   if ($_POST['actie'] === 'toevoegen') {
-    $statement = $pdo->prepare("INSERT INTO gerechten (titel, prijs, info, icon) VALUES (?, ?, ?, ?)");
+    $tabel = $_POST['catagorie'];
+    $statement = $pdo->prepare("INSERT INTO $tabel (titel, prijs, info, icon) VALUES (?, ?, ?, ?)");
     $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon']]);
     header('Location: admin.php');
     exit;
@@ -205,58 +206,14 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
 
   </div>
 </div>
-
-  <!-- ═══════════════════════════════════════
-       MODAL — GERECHT BEWERKEN
-  ════════════════════════════════════════ -->
-  <div id="modal-edit" class="modal-backdrop" onclick="closeModalBackdrop(event,'modal-edit')">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-edit-title">
-
-      <div class="modal-head">
-        <h2 id="modal-edit-title" class="modal-title">Gerecht bewerken</h2>
-        <button class="modal-close" onclick="document.getElementById('modal-edit').classList.remove('modal-open')" aria-label="Sluiten">✕</button>
-      </div>
-
-      <div class="modal-body">
-        <div class="field-row">
-          <div class="field-group">
-            <label class="field-label" for="edit-naam">Naam</label>
-            <input id="edit-naam" class="field-input" type="text" />
-          </div>
-          <div class="field-group field-sm">
-            <label class="field-label" for="edit-prijs">Prijs (€)</label>
-            <input id="edit-prijs" class="field-input" type="number" step="0.01" />
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div class="field-group">
-            <label class="field-label" for="edit-cat">Categorie</label>
-            <select id="edit-cat" class="field-input field-select">
-              <option>Gerechten</option>
-              <option>Dranken</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label" for="edit-desc">Omschrijving</label>
-          <textarea id="edit-desc" class="field-input field-textarea" rows="3"></textarea>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label" for="edit-emoji">Emoji / icoon</label>
-          <input id="edit-emoji" class="field-input" type="text" maxlength="4" />
-        </div>
-      </div>
-
-      <div class="modal-foot">
-        <button class="btn btn-ghost" onclick="document.getElementById('modal-edit').classList.remove('modal-open')">Annuleren</button>
-        <button class="btn btn-green">Wijzigingen opslaan</button>
-      </div>
-
-    </div>
-  </div>
   
+  <div class="field-group">
+      <label class="field-label">Categorie</label>
+      <select name="catagorie" class="field-input">
+          <option value="gerechten">Gerecht</option>
+          <option value="drankjes">Drankje</option>
+      </select>
+  </div>
+
 </body>
 </html>
