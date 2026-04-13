@@ -35,7 +35,7 @@
         <div class="hero-img-main">
           🍔
           <div class="hero-img-badge">
-            <span>Voor van daag</span>
+            <span>Voor vandaag</span>
             <strong>Double Smash Buger</strong>
           </div>
         </div>

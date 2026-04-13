@@ -1,0 +1,67 @@
+# # meja02 mei 2025 : 
+# # dockerfile inline, dus geen apart bestand meer nodig
+# # image keyword verwijderd: dus altijd een build
+# # php versie 8.0 -> 8.4
+# # mysql versie 5.7 -> lts (8.x)
+# name: webapp
+# services:
+#   web:
+#     container_name: php_web
+#     build:
+#       context: .
+#       # pipe symbol op volgende regel laten staan!!!
+#       dockerfile_inline: |
+#         FROM php:8.4-apache
+#         RUN docker-php-ext-install pdo pdo_mysql
+#     restart: always
+#     ports:
+#       - "8000:80"
+#     volumes:
+#       - ./html:/user/share/nginx/html
+
+# volumes:
+#   db_data:
+
+
+
+version: '3.8'
+
+services:
+  web:
+    image: php:8.2-apache
+    container_name: apache_php
+    ports:
+      - "8080:80"
+    volumes:
+      - ./HIER_JOUW_FOLDER_NAAM:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: rootpassword
+    depends_on:
+      - db
+
+volumes:
+  db_data:

@@ -7,41 +7,25 @@
 
  include_once ('database.php');
 
-
-  if ($_POST['actie'] === 'toevoegen') {
-    $tabel = $_POST['catagorie'];
-    $statement = $pdo->prepare("INSERT INTO $tabel (titel, prijs, info, icon) VALUES (?, ?, ?, ?)");
-    $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon']]);
-    header('Location: admin.php');
-    exit;
-  }
-
-  if ($_POST['actie'] === 'verwijderen') {
+  if (isset($_POST['actie']) && $_POST['actie'] === 'verwijderen') {
     $statement = $pdo->prepare("DELETE FROM gerechten WHERE id = ?");
     $statement->execute([$_POST['id']]);
     header('Location: admin.php');
     exit;
   }
 
-  if ($_POST['actie'] === 'verwijderen_drank') {
+  if (isset($_POST['actie']) && $_POST['actie'] === 'verwijderen_drank') {
     $statement = $pdo->prepare("DELETE FROM drankjes WHERE id = ?");
     $statement->execute([$_POST['id']]);
     header('Location: admin.php');
     exit;
   }
 
-  if ($_POST['actie'] === 'bewerken') {
-    $statement = $pdo->prepare("UPDATE gerechten SET titel=?, prijs=?, info=?, icon=? WHERE id=?");
-    $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon'], $_POST['id']]);
-    header('Location: admin.php');
-  exit;
-}
+  $statement = $pdo->query("SELECT * FROM gerechten");
+  $gerechten = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-$statement = $pdo->query("SELECT * FROM gerechten");
-$gerechten = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-$statement = $pdo->query("SELECT * FROM drankjes");
-$drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $statement = $pdo->query("SELECT * FROM drankjes");
+  $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +38,7 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body class="admin-body">
 
-  <!-- ── HEADER ─────────────────────────────────── -->
+  <!-- ── HEADER ──────────── -->
 
   <header class="site-header">
     <nav class="site-nav">
@@ -84,10 +68,7 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
           <h1 class="display-title">Gerechten<em> beheren</em></h1>
           <p class="body-lead">Voeg nieuwe gerechten toe, pas bestaande aan of verwijder ze uit het menu.</p>
         </div>
-        <!-- Knop om modal te openen -->
-        <button class="btn btn-green" onclick="document.getElementById('modal-add').classList.add('modal-open')">
-          + Gerecht toevoegen
-        </button>
+        <a href="toevoegen.php" class="btn btn-green"> toevoegen</a>
       </header>
 
       <!-- Gerechten tabel -->
@@ -124,7 +105,7 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
               <td class="td-desc"><?php echo $info ?></td>
               <td class="td-price">€<?php echo $prijs ?></td>
               <td class="td-actions">
-                <a href="bewerken.php?id=<?php echo $id ?>" class="action-btn edit-btn" title="Bewerken">✏️</a>
+                <a href="bewerken.php?id=<?php echo $id ?>&type=gerecht" class="action-btn edit-btn" title="Bewerken">✏️</a>
                 <form action="admin.php" method="post" style="display:inline">
                   <input type="hidden" name="actie" value="verwijderen" />
                   <input type="hidden" name="id" value="<?php echo $id ?>" />
@@ -153,7 +134,7 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
               <td class="td-desc"><?php echo $info ?></td>
               <td class="td-price">€<?php echo $prijs ?></td>
               <td class="td-actions">
-                <a href="bewerken.php?id=<?php echo $id ?>" class="action-btn edit-btn" title="Bewerken">✏️</a>
+                <a href="bewerken.php?id=<?php echo $id ?>&type=drank" class="action-btn edit-btn" title="Bewerken">✏️</a>
                 <form action="admin.php" method="post" style="display:inline">
                   <input type="hidden" name="actie" value="verwijderen_drank" />
                   <input type="hidden" name="id" value="<?php echo $id ?>" />
@@ -165,55 +146,10 @@ $drankjes = $statement->fetchAll(PDO::FETCH_ASSOC);
 
           </tbody>
         </table>
-      </section><!-- /admin-table-section -->
+      </section>
 
-    </div><!-- /admin-inner -->
-  </main>
-
-  <!--gerecht toevoegen-->
-  <div id="modal-add" class="modal-backdrop" onclick="closeModalBackdrop(event,'modal-add')">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h2 class="modal-title">Gerecht toevoegen</h2>
-      <button class="modal-close" onclick="document.getElementById('modal-add').classList.remove('modal-open')">✕</button>
     </div>
-
-    <form action="admin.php" method="post">
-      <input type="hidden" name="actie" value="toevoegen" />
-      <div class="modal-body">
-        <div class="field-group">
-          <label class="field-label">Naam</label>
-          <input name="titel" class="field-input" type="text" placeholder="bijv. Double Smash" />
-        </div>
-        <div class="field-group">
-          <label class="field-label">Prijs (€)</label>
-          <input name="prijs" class="field-input" type="number" step="0.01" />
-        </div>
-        <div class="field-group">
-          <label class="field-label">Omschrijving</label>
-          <textarea name="info" class="field-input field-textarea" rows="3"></textarea>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Emoji / icoon</label>
-          <input name="icon" class="field-input" type="text" maxlength="4" />
-        </div>
-      </div>
-      <div class="modal-foot">
-        <button type="button" class="btn btn-ghost" onclick="document.getElementById('modal-add').classList.remove('modal-open')">Annuleren</button>
-        <button type="submit" class="btn btn-green">Opslaan</button>
-      </div>
-    </form>
-
-  </div>
-</div>
-  
-  <div class="field-group">
-      <label class="field-label">Categorie</label>
-      <select name="catagorie" class="field-input">
-          <option value="gerechten">Gerecht</option>
-          <option value="drankjes">Drankje</option>
-      </select>
-  </div>
+  </main>
 
 </body>
 </html>

@@ -9,6 +9,13 @@
         exit;
     }
 
+    if(isset($_POST['id'])) {
+        $statement = $pdo->prepare("UPDATE drankjes SET titel=?, prijs=?, info=?, icon=? WHERE id=?");
+        $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon'], $_POST['id']]);
+        header('location: admin.php');
+        exit;
+    }
+
     $id = $_GET['id'];
 
     $statement = $pdo->prepare("SELECT * FROM gerechten WHERE id = ?");
@@ -33,12 +40,12 @@
             <header class="admin-page-head">
                 <div>
                     <span class="label-tag">Beheer</span>
-                    <h1 class="display-title">Gerecht <em>bewerken</em></h1>
+                    <h1 class="display-title">Gerecht/Drank <em>bewerken</em></h1>
                 </div>
                 <a href="admin.php" class="btn btn-ghost">← Terug</a>
             </header>
 
-            <section class="admin-table-section" style="padding: 2rem;">
+            <section class="admin-table-section">
                 <form action="bewerken.php" method="post">
                     <input type="hidden" name="id" value="<?php echo $gerecht['id']?>">
                     <input type="hidden" name="type" value="<?php echo $type ?>">
