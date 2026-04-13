@@ -1,16 +1,17 @@
 <?php session_start();
 
-    include_once('database.php');
-
-    if(isset($_POST['id'])) {
-        $statement = $pdo->prepare("UPDATE gerechten SET titel=?, prijs=?, info=?, icon=? WHERE id=?");
-        $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon'], $_POST['id']]);
-        header('location: admin.php');
+    if (!isset($_SESSION['ingeloged']) || $_SESSION['ingeloged'] !== true) {
+        header('Location: inlog.php');
         exit;
     }
 
+    include_once('database.php');
+
+    $type = $_GET['type'] ?? $_POST['type'];
+    $tabel = $type === 'drank' ? 'drankjes' : 'gerechten';
+
     if(isset($_POST['id'])) {
-        $statement = $pdo->prepare("UPDATE drankjes SET titel=?, prijs=?, info=?, icon=? WHERE id=?");
+        $statement = $pdo->prepare("UPDATE $tabel SET titel=?, prijs=?, info=?, icon=? WHERE id=?");
         $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon'], $_POST['id']]);
         header('location: admin.php');
         exit;
@@ -18,7 +19,7 @@
 
     $id = $_GET['id'];
 
-    $statement = $pdo->prepare("SELECT * FROM gerechten WHERE id = ?");
+    $statement = $pdo->prepare("SELECT * FROM $tabel WHERE id = ?");
     $statement->execute([$id]);
     $gerecht = $statement->fetch();
 

@@ -1,14 +1,19 @@
 <?php session_start();
 
-include_once('database.php');
+    if (!isset($_SESSION['ingeloged']) || $_SESSION['ingeloged'] !== true) {
+        header('Location: inlog.php');
+        exit;
+    }
 
-if (isset($_POST['titel'])) {
-    $tabel = $_POST['catagorie'];
-    $statement = $pdo->prepare("INSERT INTO $tabel (titel, prijs, info, icon) VALUES (?, ?, ?, ?)");
-    $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon']]);
-    header('Location: admin.php');
-    exit;
-}
+    include_once('database.php');
+
+    if (isset($_POST['titel'])) {
+        $tabel = $_POST['catagorie'];
+        $statement = $pdo->prepare("INSERT INTO $tabel (titel, prijs, info, icon) VALUES (?, ?, ?, ?)");
+        $statement->execute([$_POST['titel'], $_POST['prijs'], $_POST['info'], $_POST['icon']]);
+        header('Location: admin.php');
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
