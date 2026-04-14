@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Burger Restaurant — Home</title>
   <link rel="stylesheet" href="style.css" />
-  
+
 </head>
 
 <body class="page-wrap">
 
   <?php
-  INCLUDE_ONCE ('header.php')
+  include_once('header.php')
   ?>
 
   <!-- HERO -->
@@ -47,8 +48,9 @@
   <!-- FOOTER -->
 
   <?php
-  INCLUDE_ONCE ('footer.php');
+  include_once('footer.php');
   ?>
 
 </body>
+
 </html>

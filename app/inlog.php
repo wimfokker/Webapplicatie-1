@@ -46,7 +46,6 @@ if (isset($_POST['email'], $_POST['wachtwoord'])) {
     <p class="login-sub">Log in om je bestellingen te bekijken<br />en je gegevens te beheren.</p>
 
     <!-- Velden -->
-
     <form action="inlog.php" method="post">
       <div class="login-fields">
         <div class="field">
@@ -61,8 +60,10 @@ if (isset($_POST['email'], $_POST['wachtwoord'])) {
       <div class="login-actions">
         <button type="submit" class="btn btn-green btn-full">Inloggen</button>
       </div>
-    </form>  
-
+      <?php if (isset($fout)) { ?>
+        <p style="color: red;"><?php echo $fout ?></p>
+      <?php } ?> 
+    </form> 
   </main>
     
   <?php

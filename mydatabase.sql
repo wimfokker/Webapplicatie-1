@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Gegenereerd op: 07 apr 2026 om 19:03
+-- Gegenereerd op: 14 apr 2026 om 07:55
 -- Serverversie: 8.4.8
 -- PHP-versie: 8.3.30
 
@@ -89,19 +89,18 @@ CREATE TABLE `gerechten` (
 --
 
 INSERT INTO `gerechten` (`id`, `titel`, `prijs`, `info`, `icon`) VALUES
-(42, 'Double Smash Burger', 14.99, 'Twee geplette rundvlees patties met speciale saus', '🍔'),
+(42, 'Double Smash Burger', 14.99, 'Twee geplette rundvlees patties met speciale saus.', '🍔'),
 (43, 'Crispy Chicken Burger', 11.99, 'Krokante kipfilet met sla en mayonaise', '🍗'),
 (44, 'Hot Dog', 7.50, 'Klassieke hotdog met mosterd en ketchup', '🌭'),
 (45, 'BBQ Bacon Burger', 15.50, 'Rundvlees patty met gerookt spek en BBQ saus', '🥓'),
-(46, 'Veggie Burger', 10.99, 'Plantaardig patty met verse groenten', '🥗'),
+(46, 'Veggie Burger', 10.99, 'Plantaardig patty met verse groenten.', '🥗'),
 (47, 'Friet', 4.50, 'Krokante gouden frietjes met zeezout', '🍟'),
 (48, 'Loaded Fries', 7.99, 'Frietjes met kaassaus en jalapeños', '🍟'),
 (49, 'Uitjes Ringen', 5.50, 'Krokante uitjenringen in beslag', '🧅'),
 (50, 'Kip Nuggets', 8.99, '10 krokante kip nuggets met dipsaus', '🍗'),
 (51, 'Caesar Wrap', 10.50, 'Gegrilde kip, romaine sla en caesar dressing in een wrap', '🌯'),
 (52, 'IJs Sundae', 4.99, 'Vanille ijs met chocoladesaus en hagelslag', '🍨'),
-(54, 'Mozzarella Sticks', 6.99, 'Krokante gefrituurde mozzarella sticks met marinara saus', '🧀'),
-(63, 'Testbugertest', 5.00, 'test', '🍔');
+(54, 'Mozzarella Sticks', 6.99, 'Krokante gefrituurde mozzarella sticks met marinara saus', '🧀');
 
 -- --------------------------------------------------------
 
@@ -261,7 +260,7 @@ ALTER TABLE `studenten`
 -- AUTO_INCREMENT voor een tabel `drankjes`
 --
 ALTER TABLE `drankjes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT voor een tabel `gebruikers`
@@ -273,7 +272,7 @@ ALTER TABLE `gebruikers`
 -- AUTO_INCREMENT voor een tabel `gerechten`
 --
 ALTER TABLE `gerechten`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT voor een tabel `studenten`

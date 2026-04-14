@@ -110,44 +110,8 @@ if (isset($_GET["search"]) && $_GET["search"] !== "") {
           <?php }?>
         </div>
       </section>
-
     </main>
-
-    <!-- WINKELWAGEN RECHTS werkt niet-->
-    <aside class="cart-col" id="cart" aria-label="Winkelwagen">
-      <div class="cart-scroll">
-        <div class="cart-title">
-          (Winkelwagen werkt niet want ik heb geen tijd om het te maken voor deze perioden.)
-          <button class="cart-close-btn" aria-label="Sluiten">✕</button>
-        </div>
-
-        <ul class="cart-items">
-          <li class="cart-item">
-            <div class="ci-info"><span class="ci-name"></span>Cheese buger<span class="ci-desc">Standaart</span></div>
-            <div class="ci-controls"><button class="qty-btn">−</button><span class="qty-num">2</span><button class="qty-btn">+</button></div>
-            <span class="ci-price"></span>
-          </li>
-        </ul>
-
-        <div class="cart-totals">
-          <div class="cart-row"><span>Subtotaal</span><span></span></div>
-          <div class="cart-row muted"><span>Incl. BTW</span><span></span></div>
-          <div class="cart-divider"></div>
-          <div class="cart-row total"><span>Totaal</span><span>€ 33,50</span></div>
-        </div>
-
-        <div class="cart-note">
-          <label for="note">Opmerking</label>
-          <textarea id="note" rows="2" placeholder="Bijv. geen ui, extra saus…"></textarea>
-        </div>
-      </div>
-
-      <div class="cart-footer">
-        <button class="btn-checkout">Afrekenen</button>
-      </div>
-    </aside>
-
-  </div><!-- /order-layout -->
+  </div>
 
   <div class="cart-overlay"></div>
 

@@ -33,7 +33,7 @@
             <span class="label-tag">Beheer</span>
             <h1 class="display-title">Product <em>toevoegen</em></h1>
         </div>
-        <a href="admin.php" class="btn btn-ghost">← Terug</a>
+        <a href="admin.php" class="btn btn-ghost">Terug</a>
     </header>
 
     <section class="admin-table-section">

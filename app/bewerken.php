@@ -37,13 +37,12 @@
 <body class="admin-body">
     <main class="admin-wrap page-wrap">
         <div class="admin-inner">
-
             <header class="admin-page-head">
                 <div>
                     <span class="label-tag">Beheer</span>
                     <h1 class="display-title">Gerecht/Drank <em>bewerken</em></h1>
                 </div>
-                <a href="admin.php" class="btn btn-ghost">← Terug</a>
+                <a href="admin.php" class="btn btn-ghost">Terug</a>
             </header>
 
             <section class="admin-table-section">
@@ -78,10 +77,8 @@
                         <a href="admin.php" class="btn btn-ghost">Annuleren</a>
                         <button type="submit" class="btn btn-green">Opslaan</button>
                     </div>
-
                 </form>
             </section>
-
         </div>
     </main>
 </body>
